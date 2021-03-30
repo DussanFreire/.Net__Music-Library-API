@@ -8,10 +8,11 @@ namespace MusicLibraryAPI.Services
 {
     public interface IArtistsService
     {
-        public IEnumerable<ArtistModel> GetArtists();
+        public IEnumerable<ArtistModel> GetArtists(string orderBy = "id");
         public ArtistModel GetArtist(long artistId);
         public ArtistModel CreateArtist(ArtistModel newArtist);
         public bool DeleteArtist(long artistId);
         public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist);
+        public ArtistModel UpdateArtistFollowers(long artistId, ActionModel action);
     }
 }

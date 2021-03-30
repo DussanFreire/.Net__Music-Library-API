@@ -38,12 +38,13 @@ namespace MusicLibraryAPI.Services
             _albums.Add(new AlbumModel()
             {
                 Id = 3,
-                Name = "McCartney",
-                RecordIndustry = "Apple Records",
-                Likes = 26412321,
-                PublicationDate = new DateTime(1970, 4, 17),
+                Name = "Band of Gypsys",
+                RecordIndustry = "Fillmore East",
+                Likes = 2311445,
+                PublicationDate = new DateTime(1970, 1, 1),
                 ArtistId = 3
             });
+
         }
         public AlbumModel CreateAlbum(long artistId, AlbumModel newAlbum)
         {
@@ -77,6 +78,11 @@ namespace MusicLibraryAPI.Services
         {
             ValidateArtist(artistId);
             return _albums.Where(p => p.ArtistId == artistId);
+        }
+
+        public IEnumerable<AlbumModel> GetAllAlbums()
+        {
+            return _albums;
         }
 
         public AlbumModel UpdateAlbum(long artistId, long albumId, AlbumModel updatedAlbum)

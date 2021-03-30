@@ -56,5 +56,61 @@ namespace MusicLibraryAPI.Controllers
             }
 
         }
+
+        [HttpPost]
+        public ActionResult<AlbumModel> CreateAlbum(long artistId, [FromBody] AlbumModel newAlbum)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                var artist = _albumService.CreateAlbum(artistId, newAlbum);
+                return Created($"/api/artists/{artist.Id}", artist);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+
+        [HttpDelete("{albumId:long}")]
+        public ActionResult<bool> DeleteAlbum(long artistId, long albumId)
+        {
+            try
+            {
+                var result = _albumService.DeleteAlbum(artistId, albumId);
+                return Ok(result);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+
+        [HttpPut("{albumId:long}")]
+        public ActionResult<AlbumModel> UpdateAlbum(long artistId, long albumId, [FromBody] AlbumModel updatedAlbum)
+        {
+            try
+            {
+                var artist = _albumService.UpdateAlbum(artistId, albumId, updatedAlbum);
+                return Ok(artist);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
     }
 }

@@ -15,17 +15,17 @@ namespace MusicLibraryAPI.Controllers
     public class ArtistsController : Controller
     {
         private IArtistsService _artistsService;
-        public ArtistsController(IArtistsService teamsService)
+        public ArtistsController(IArtistsService artistsService)
         {
-            _artistsService = teamsService;
+            _artistsService = artistsService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ArtistModel>> GetArtists()
+        public ActionResult<IEnumerable<ArtistModel>> GetArtists(string orderBy = "id")
         {
             try
             {
-                var artists = _artistsService.GetArtists();
+                var artists = _artistsService.GetArtists(orderBy);
                 return Ok(artists);
             }
             catch (InvalidOperationItemException ex)
@@ -37,6 +37,8 @@ namespace MusicLibraryAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
+
+    
 
         [HttpGet("{artistId:long}")]
         public ActionResult<ArtistModel> GetArtist(long artistId)
@@ -73,7 +75,7 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpDelete("{artistId:long}")]
-        public ActionResult<bool> DeleteTeam(long artistId)
+        public ActionResult<bool> DeleteArtist(long artistId)
         {
             try
             {
@@ -97,6 +99,28 @@ namespace MusicLibraryAPI.Controllers
             {
                 var artist = _artistsService.UpdateArtist(artistId, updatedArtist);
                 return Ok(artist);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+
+        [HttpPut("{artistId:long}$followers")]
+        public ActionResult<ArtistModel> UpdateArtistFollowers(long artistId, [FromBody] ActionModel action)
+        {
+            try
+            {
+                var artist = _artistsService.UpdateArtistFollowers(artistId, action);
+                return Ok(artist);
+            }
+            catch (InvalidOperationItemException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (NotFoundItemException ex)
             {

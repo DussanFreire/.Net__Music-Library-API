@@ -11,6 +11,19 @@ namespace MusicLibraryAPI.Services
     {
         private IList<ArtistModel> _artists;
 
+        private HashSet<string> _allowedOrderByValues = new HashSet<string>()
+        {
+            "id",
+            "name",
+            "followers",
+            "Nacionality"
+        };
+
+        private HashSet<string> _allowedUpdatesToFollowers = new HashSet<string>()
+        {
+            "artist followed by an user",
+            "artist unfollowed by an user",
+        };
         public ArtistService()
         {
             _artists = new List<ArtistModel>();
@@ -30,12 +43,22 @@ namespace MusicLibraryAPI.Services
             {
                 Id = 2,
                 ArtisticName = "Rod Stewart",
-                Name = "Roderick David Stewart,",
+                Name = "Roderick David Stewart",
                 Followers = 213215,
                 Nacionality = "England",
                 ArtistDescription = "Modern fans of Rod Stewart's smooth songbook recordings might not recognize the tough rock that defined his early work. His solo career began when he was still a member of the Faces, and – at least initially – mirrored his main band's ragged roots rock. But he found far more chart success and soon struck out on his own.",
                 DateOfBirth = new DateTime(1945, 1, 10),
+            });
 
+            _artists.Add(new ArtistModel()
+            {
+                Id = 3,
+                ArtisticName = "Jimi Hendrix",
+                Name = "James Marshall Hendrix",
+                Followers = 4534546,
+                Nacionality = "USA",
+                ArtistDescription = "James Marshall Hendrix, better known as Jimi Hendrix, was an American guitarist, singer, and songwriter. Despite the fact that his professional career only lasted four years, he is considered one of the most influential guitarists in rock history.",
+                DateOfBirth = new DateTime(1942, 10, 27),
             });
         }
 
@@ -64,9 +87,21 @@ namespace MusicLibraryAPI.Services
             return artist;
         }
 
-        public IEnumerable<ArtistModel> GetArtists()
+        public IEnumerable<ArtistModel> GetArtists(string orderBy = "id")
         {
-            return _artists.OrderBy(t => t.Id);
+            if (!_allowedOrderByValues.Contains(orderBy.ToLower()))
+                throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
+            switch (orderBy.ToLower())
+            {
+                case "name":
+                    return _artists.OrderBy(t => t.Name);
+                case "followers":
+                    return _artists.OrderByDescending(t => t.Followers);
+                case "Nacionality":
+                    return _artists.OrderBy(t => t.Nacionality);
+                default:
+                    return _artists.OrderBy(t => t.Id); 
+            }
         }
 
         public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist)
@@ -79,6 +114,25 @@ namespace MusicLibraryAPI.Services
             artist.ArtistDescription = updatedArtist.ArtistDescription ?? artist.ArtistDescription;
             artist.Followers = updatedArtist.Followers ?? artist.Followers;
             artist.Nacionality = updatedArtist.Nacionality ?? artist.Nacionality;
+            return artist;
+        }
+
+        public ArtistModel UpdateArtistFollowers(long artistId, ActionModel action)
+        {
+            if (!_allowedUpdatesToFollowers.Contains(action.Action.ToLower()))
+                throw new InvalidOperationItemException($"The update: {action.Action} is invalid");
+            var artist = GetArtist(artistId);
+            switch (action.Action.ToLower())
+            {
+                case "artist followed by an user":
+                    artist.Followers++;
+                    break;
+                case "artist unfollowed by an user":
+                    artist.Followers--;
+                    break;
+                default:
+                    break;
+            }
             return artist;
         }
     }
