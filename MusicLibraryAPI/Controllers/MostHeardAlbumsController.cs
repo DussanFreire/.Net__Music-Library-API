@@ -11,25 +11,23 @@ using System.Threading.Tasks;
 namespace MusicLibraryAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class MostPlayedSongsController : Controller
+    public class MostHeardAlbumsController : Controller
     {
-        private ISongsService _songService;
-        public MostPlayedSongsController(ISongsService songService)
+        IAlbumsWithReproductionsService _albumWithReproductionsService;
+
+
+        public MostHeardAlbumsController(IAlbumsService albumService, IAlbumsWithReproductionsService albumWithReproductionsService)
         {
-             _songService = songService;
+            _albumWithReproductionsService = albumWithReproductionsService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SongModel>> GetMostPlayedSongs(string orderBy = "reproductions", string filter = "top10")
+        public ActionResult<List<AlbumWithReproductionsModel>> GetMostHeardAlbums()
         {
             try
             {
-                var songs = _songService.GetMostPlayedSongs(orderBy, filter);
-                return Ok(songs);
-            }
-            catch (InvalidOperationItemException ex)
-            {
-                return NotFound(ex.Message);
+                var albumsWithReproductions= _albumWithReproductionsService.ChooseMostHearedAlbums();
+                return Ok(albumsWithReproductions);
             }
             catch (NotFoundItemException ex)
             {
@@ -40,5 +38,6 @@ namespace MusicLibraryAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
+       
     }
 }

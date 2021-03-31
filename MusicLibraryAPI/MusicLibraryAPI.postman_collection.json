@@ -1,0 +1,712 @@
+{
+	"info": {
+		"_postman_id": "e7165b93-0879-4061-91e9-37a7c5af3bc7",
+		"name": "MusicLibraryAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "GetArtists",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetArtist",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateArtist",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"artisticName\": \"Paul McCartney\",\r\n    \"name\": \"Sir James Paul McCartney\",\r\n    \"followers\": 321116,\r\n    \"nacionality\": \"England\",\r\n    \"artistDescription\": \"Paul McCartney quickly became the Beatles' most successful solo artist, scoring seven No. 1 U.S. singles and five No. 1 albums with his new band Wings.\",\r\n    \"dateOfBirth\": \"1942-06-18T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteArtist",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateArtist",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"artisticName\":\"Roddy Stewart\",\r\n    \"followers\":300\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetArtistsOrderedByFollowers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/artists?orderby=followers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists"
+							],
+							"query": [
+								{
+									"key": "orderby",
+									"value": "followers"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateArtistWasFollowed",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Action\": \"artist followed by an user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:25797/api/artists/2$followers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"2$followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateArtistWasUnfollowed",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Action\": \"artist unfollowed by an user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:25797/api/artists/2$followers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"2$followers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Album",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "GetAlbum",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/1/albums/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"1",
+										"albums",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateAlbum",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\": \"McCartney\",\r\n    \"RecordIndustry\": \"Apple Records\",\r\n    \"Likes\": 26412321,\r\n    \"PublicationDate\": \"1970-04-17T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAlbums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAlbum",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateAlbum",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Likes\": 101\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetMostHeardAlbums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/MostHeardAlbums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"MostHeardAlbums"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Song",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "GetSong",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/1/albums/1/songs/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"1",
+										"albums",
+										"1",
+										"songs",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetSongs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/1/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"1",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateSong",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"duration\": \"6:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums/3/songs/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums",
+										"3",
+										"songs",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteSong",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums/3/songs/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums",
+										"3",
+										"songs",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateSong",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Stay With Me\",\r\n    \"duration\": \"4:31\",\r\n    \"reproductions\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/2/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"2",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UpdateSongPlayed",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Action\": \"the song was played\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:25797/api/artists/1/albums/1/songs/1$played",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"albums",
+								"1",
+								"songs",
+								"1$played"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMostPlayedSong",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?filter=mostPlayedSong",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"albums",
+								"1",
+								"songs"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "mostPlayedSong"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTop3OfTheAlbum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?filter=top3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"albums",
+								"1",
+								"songs"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "top3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSongsOrderByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?orderBy=name&filter=top10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"albums",
+								"1",
+								"songs"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "name"
+								},
+								{
+									"key": "filter",
+									"value": "top10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMostPlayedSongs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/MostPlayedSongs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"MostPlayedSongs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMostPlayedSongsFilteredByGenre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:25797/api/MostPlayedSongs?filter=Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"MostPlayedSongs"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "Rock"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
