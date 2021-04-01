@@ -20,5 +20,6 @@ namespace MusicLibraryAPI.Models
         [Required]
         public string ArtistDescription { get; set; }
         public DateTime? DateOfBirth { get; set; }
+
     }
 }

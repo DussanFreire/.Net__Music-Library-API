@@ -16,6 +16,9 @@ namespace MusicLibraryAPI.Models
         [Required]
         public long? Likes { get; set; }
         public DateTime? PublicationDate { get; set; }
+        public string Description { get; set; }
+        public int? Price { get; set; }
+        public double? Popularity { get; set; }
         public long ArtistId { get; set; }
     }
 }

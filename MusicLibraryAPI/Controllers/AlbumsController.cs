@@ -112,5 +112,37 @@ namespace MusicLibraryAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
+        [Route("/api/bestalbums")]
+        [HttpGet]
+        public ActionResult<IEnumerable<AlbumModel>> GetBestAlbums()
+        {
+            try
+            {
+                var albums = _albumService.BestAlbums();
+                return Ok(albums);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+        [Route("/api/topalbums")]
+        [HttpGet]
+        public ActionResult<IEnumerable<AlbumModel>> GetTopAlbums(string value = "", int top = 5, bool descending = false)
+        {
+            try
+            {
+                var albums = _albumService.GetTop(value,top,descending);
+                return Ok(albums);
+            }
+            catch (InvalidOperationItemException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
     }
 }

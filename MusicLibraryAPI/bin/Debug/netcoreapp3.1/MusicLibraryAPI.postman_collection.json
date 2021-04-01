@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a4bd7505-b151-4bde-a0e4-2302c5ba152c",
+		"_postman_id": "e7165b93-0879-4061-91e9-37a7c5af3bc7",
 		"name": "MusicLibraryAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -219,24 +219,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "ArtistMeanFollowersForYear",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "GetArtistForDecade",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
 				}
 			]
 		},
@@ -396,24 +378,6 @@
 								"MostHeardAlbums"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetTop",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "GetBestAlbumsForArtist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
 					},
 					"response": []
 				}

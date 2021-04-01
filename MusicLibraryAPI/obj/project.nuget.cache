@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "XtMnp1eYCNCbOiQOhxIc4hhHUKPcFPbsQQmVeRqHQydMx2sLxL8Hnjt85gbeELfIX88iFjWTn2UgkadyTQHvKw==",
+  "dgSpecHash": "x4V1um5x+rqE57tzjBb4wUCctgnc5X2L28zyC9YPkheLjApqBVCTcImLmrpzlM0NFQA3ZWjiG2QL7C8fCUuNtg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dussan\\Desktop\\MusicLibraryAPI\\MusicLibraryAPI\\MusicLibraryAPI.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Downloads\\Tec web\\Proyecto\\C#\\MusicLibraryAPI\\MusicLibraryAPI\\MusicLibraryAPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Dussan\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.4\\microsoft.aspnetcore.jsonpatch.5.0.4.nupkg.sha512",
-    "C:\\Users\\Dussan\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.0\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.0.nupkg.sha512",
-    "C:\\Users\\Dussan\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
-    "C:\\Users\\Dussan\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
-    "C:\\Users\\Dussan\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.4\\microsoft.aspnetcore.jsonpatch.5.0.4.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.0\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
   ],
   "logs": []
 }

@@ -140,6 +140,42 @@ namespace MusicLibraryAPI.Services
                 Duration = "7:21",
                 AlbumId = 1
             });
+            _songs.Add(new SongModel()
+            {
+                Id = 12,
+                Name = "It Was A Good Day",
+                Reproductions = 13619985,
+                Genres = "Rap",
+                Duration = "4:20",
+                AlbumId = 4
+            });
+            _songs.Add(new SongModel()
+            {
+                Id = 13,
+                Name = "Howling",
+                Reproductions = 1817752,
+                Genres = "J-Pop",
+                Duration = "4:32",
+                AlbumId = 7
+            });
+            _songs.Add(new SongModel()
+            {
+                Id = 14,
+                Name = "Business",
+                Reproductions = 7100828,
+                Genres = "Hip Hop",
+                Duration = "4:11",
+                AlbumId = 8
+            });
+            _songs.Add(new SongModel()
+            {
+                Id = 15,
+                Name = "Yo Canto",
+                Reproductions = 1307493,
+                Genres = "Pop",
+                Duration = "4:21",
+                AlbumId = 9
+            });
         }
         public SongModel CreateSong(long albumId, SongModel newSong, long artistId)
         {

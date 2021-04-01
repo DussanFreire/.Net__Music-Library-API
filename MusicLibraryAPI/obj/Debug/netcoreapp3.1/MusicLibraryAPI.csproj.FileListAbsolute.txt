@@ -23,3 +23,29 @@ C:\Users\Dussan\Desktop\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\
 C:\Users\Dussan\Desktop\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\Dussan\Desktop\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Dussan\Desktop\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.csproj.CopyComplete
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.postman_collection.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.exe
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.deps.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.runtimeconfig.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.runtimeconfig.dev.json
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\MusicLibraryAPI.pdb
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.csprojAssemblyReference.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.AssemblyInfo.cs
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\staticwebassets\MusicLibraryAPI.StaticWebAssets.Manifest.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\staticwebassets\MusicLibraryAPI.StaticWebAssets.xml
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\scopedcss\bundle\MusicLibraryAPI.styles.css
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.RazorTargetAssemblyInfo.cache
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.csproj.CopyComplete
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.dll
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.pdb
+C:\Users\Lenovo\Downloads\Tec web\Proyecto\C#\MusicLibraryAPI\MusicLibraryAPI\obj\Debug\netcoreapp3.1\MusicLibraryAPI.genruntimeconfig.cache

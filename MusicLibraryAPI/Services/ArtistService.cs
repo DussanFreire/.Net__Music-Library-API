@@ -60,6 +60,46 @@ namespace MusicLibraryAPI.Services
                 ArtistDescription = "James Marshall Hendrix, better known as Jimi Hendrix, was an American guitarist, singer, and songwriter. Despite the fact that his professional career only lasted four years, he is considered one of the most influential guitarists in rock history.",
                 DateOfBirth = new DateTime(1942, 10, 27),
             });
+            _artists.Add(new ArtistModel()
+            {
+                Id = 4,
+                ArtisticName = "Ice Cube",
+                Name = "O'Shea Jackson",
+                Followers = 500000,
+                Nacionality = "USA",
+                ArtistDescription = "Ice Cube is an American rapper, actor, and filmmaker. They is knowed for his political rap.",
+                DateOfBirth = new DateTime(1978, 1, 1),
+            });
+            _artists.Add(new ArtistModel()
+            {
+                Id = 5,
+                ArtisticName= "Asca",
+                Name = "Asuka Ōkura",
+                Followers = 200000,
+                Nacionality="Japanese",
+                ArtistDescription = "Asuka made her debut in 2013 after becoming a finalist at the 5th Animax All-Japan Anisong Grand Prix. After focusing on her studies, she resumed her music career in late 2016.",
+                DateOfBirth = new DateTime(1996, 9, 5),
+            });
+            _artists.Add(new ArtistModel()
+            {
+                Id = 6,
+                ArtisticName = "Eminen",
+                Name = "Marshall Bruce Mathers III",
+                Followers = 2000000,
+                Nacionality = "USA",
+                ArtistDescription = "Eminen is an American rapper, songwriter, and record producer. Eminem is among the best-selling music artists of all time, with estimated worldwide sales of more than 220 million records.",
+                DateOfBirth = new DateTime(1972, 10, 17),
+            });
+            _artists.Add(new ArtistModel()
+            {
+                Id = 7,
+                ArtisticName="Laura Pausini",
+                Name = "Laura Pausini",
+                Followers = 473000,
+                Nacionality = "Italian",
+                ArtistDescription = "Laura is an Italian singer-songwriter and television personality.  After competing in local singing contests, Pausini signed her first recording contract. She rose to fame in 1993.",
+                DateOfBirth = new DateTime(1974, 5, 16),
+            });
         }
 
         public ArtistModel CreateArtist(ArtistModel newArtist)
@@ -134,6 +174,27 @@ namespace MusicLibraryAPI.Services
                     break;
             }
             return artist;
+        }
+        public string GetMeanOfFollowersByYearsOfCareer(int years = 0)
+        {
+            var artists = _artists.Where(a => years <= a.DateOfBirth.Value.Year);
+            return $"If the artist has at least {years} years , he can have {artists.Average(a => a.Followers)} followers.";
+        }
+        public List<ArtistForDecadeModel> GetArtistForYearOfBorning()
+        {
+            var artistGroupedByYear = _artists.GroupBy(a => a.DateOfBirth.Value.Year - a.DateOfBirth.Value.Year % 10);
+            var list = new List<ArtistForDecadeModel>();
+            foreach (var artists in artistGroupedByYear)
+            {
+                var artistM = new ArtistForDecadeModel();
+                artistM.Year = artists.Key;
+                foreach (var artist in artists)
+                {
+                    artistM.Names.Add(artist.Name);
+                }
+                list.Add(artistM);
+            }
+            return list;
         }
     }
 }

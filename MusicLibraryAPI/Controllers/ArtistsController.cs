@@ -131,5 +131,34 @@ namespace MusicLibraryAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
+        [Route("/api/artists/report/")]
+        [HttpGet]
+        public ActionResult<string> getMean(int years = 3)
+        {
+            try
+            {
+                if (years < 2)
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+                return Ok(_artistsService.GetMeanOfFollowersByYearsOfCareer(years));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, "Years must be greater than 2 years.");
+            }
+        }
+        [Route("/api/artists/year/")]
+        [HttpGet]
+        public ActionResult<List<ArtistForDecadeModel>> GetArtistForYear()
+        {
+            try
+            {
+                var artistForYear = _artistsService.GetArtistForYearOfBorning();
+                return Ok(artistForYear);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, "Years of experience must be greater than 2 years.");
+            }
+        }
     }
 }

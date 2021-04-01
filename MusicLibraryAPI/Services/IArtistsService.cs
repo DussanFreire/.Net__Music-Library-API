@@ -14,5 +14,7 @@ namespace MusicLibraryAPI.Services
         public bool DeleteArtist(long artistId);
         public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist);
         public ArtistModel UpdateArtistFollowers(long artistId, ActionModel action);
+        public string GetMeanOfFollowersByYearsOfCareer(int years = 0);
+        public List<ArtistForDecadeModel> GetArtistForYearOfBorning();
     }
 }

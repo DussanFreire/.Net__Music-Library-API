@@ -14,5 +14,7 @@ namespace MusicLibraryAPI.Services
         public bool DeleteAlbum(long artistId, long albumId);
         public AlbumModel UpdateAlbum(long artistId, long albumId, AlbumModel updatedAlbum);
         public IEnumerable<AlbumModel> GetAllAlbums();
+        public IEnumerable<AlbumModel> BestAlbums();
+        public IEnumerable<AlbumModel> GetTop(string value = "", int n = 5, bool isDescending = false);
     }
 }
