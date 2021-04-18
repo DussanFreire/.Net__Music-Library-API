@@ -5,13 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using AutoMapper;
+using MusicLibraryAPI.Data.Repositories;
+using MusicLibraryAPI.Data.Entities;
 namespace MusicLibraryAPI.Services
 {
     public class SongService : ISongsService
     {
-        private ICollection<SongModel> _songs;
-        private IAlbumsService _albumService;
+        private IMusicLibraryRepository _repository;
+        private IMapper _mapper;
         private HashSet<string> _allowedUpdatesToReproductions = new HashSet<string>()
         {
             "the song was played",
@@ -36,173 +38,38 @@ namespace MusicLibraryAPI.Services
             "mostplayedsong",
         };
 
-        public SongService(IAlbumsService songService)
+        public SongService(IMusicLibraryRepository repository, IMapper mapper)
         {
-            _albumService = songService;
-            _songs = new List<SongModel>();
-            _songs.Add(new SongModel()
-            {
-                Id = 1,
-                Name = "Like a Rolling Stone",
-                Reproductions = 15454444545,
-                Genres = "Blues",
-                Duration = "4:31",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 2,
-                Name = "Tangled Up In Blue",
-                Reproductions = 35254542465465,
-                Genres = "Rock",
-                Duration = "4:32",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 3,
-                Name = "Young turks",
-                Reproductions = 45454545465465,
-                Duration = "5:02",
-                Genres = "Rock",
-                AlbumId = 2
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 4,
-                Name = "Have You Ever Seen The Rain",
-                Reproductions = 5454545465465,
-                Duration = "3:10",
-                Genres = "Rock",
-                AlbumId = 2
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 5,
-                Name = "Machine Gun",
-                Reproductions = 12233131313,
-                Genres = "Rock",
-                Duration = "12:38",
-                AlbumId = 3
-            });
-
-            _songs.Add(new SongModel()
-            {
-                Id = 6,
-                Name = "Changes",
-                Reproductions = 16532123,
-                Duration = "7:21",
-                Genres = "Rock",
-                AlbumId = 3
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 7,
-                Name = "Song 3",
-                Reproductions = 34567643,
-                Duration = "7:21",
-                Genres = "Blues",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 8,
-                Name = "Song 4",
-                Reproductions = 43456864,
-                Duration = "7:21",
-                Genres = "Cumbia",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 9,
-                Name = "Song 5",
-                Reproductions = 7875647,
-                Duration = "7:21",
-                Genres = "Rock",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 10,
-                Name = "Song 6",
-                Reproductions = 8458937,
-                Genres = "Blues",
-                Duration = "7:21",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 11,
-                Name = "Song 7",
-                Reproductions = 65778978,
-                Genres = "Cumbia",
-                Duration = "7:21",
-                AlbumId = 1
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 12,
-                Name = "It Was A Good Day",
-                Reproductions = 13619985,
-                Genres = "Rap",
-                Duration = "4:20",
-                AlbumId = 4
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 13,
-                Name = "Howling",
-                Reproductions = 1817752,
-                Genres = "J-Pop",
-                Duration = "4:32",
-                AlbumId = 7
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 14,
-                Name = "Business",
-                Reproductions = 7100828,
-                Genres = "Hip Hop",
-                Duration = "4:11",
-                AlbumId = 8
-            });
-            _songs.Add(new SongModel()
-            {
-                Id = 15,
-                Name = "Yo Canto",
-                Reproductions = 1307493,
-                Genres = "Pop",
-                Duration = "4:21",
-                AlbumId = 9
-            });
+            _repository = repository;
+            _mapper = mapper;
         }
         public SongModel CreateSong(long albumId, SongModel newSong, long artistId)
         {
             ValidateAlbum(albumId, artistId);
-            newSong.AlbumId = albumId;
-            var nextId = _songs.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
-            newSong.Id = nextId;
-            _songs.Add(newSong);
-            return newSong;
+            var newS = _mapper.Map<SongModel>(_repository.CreateSong(albumId, _mapper.Map<SongEntity>(newSong), artistId));
+            ///newSong.AlbumId = albumId;
+            ///var nextId = _songs.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
+            ///newSong.Id = nextId;
+            ///_songs.Add(newSong);
+            return newS;
         }
 
         public bool DeleteSong(long albumId, long songId, long artistId)
         {
             var songToDelete = GetSong(albumId, songId, artistId);
-            _songs.Remove(songToDelete);
-            return true;
+            ///_songs.Remove(songToDelete);
+            return _repository.DeleteSong(albumId,songId,artistId);
         }
 
         public SongModel GetSong(long albumId, long songId, long artistId)
         {
             ValidateAlbum(albumId, artistId);
-            var song = _songs.FirstOrDefault(p => p.AlbumId == albumId && p.Id == songId);
+            var song = _repository.GetSong(albumId, songId, artistId);
             if (song == null)
             {
                 throw new NotFoundItemException($"The song with id: {songId} does not exist in album with id:{albumId}.");
             }
-            return song;
+            return _mapper.Map<SongModel>(song);
         }
         
 
@@ -245,32 +112,24 @@ namespace MusicLibraryAPI.Services
 
         public SongModel UpdateSong(long albumId, long songId, SongModel updatedSong, long artistId)
         {
-            var songToUpdate = GetSong(albumId, songId, artistId);
-            songToUpdate.Name = updatedSong.Name ?? songToUpdate.Name;
-            songToUpdate.Duration = updatedSong.Duration ?? songToUpdate.Duration;
-            songToUpdate.Genres = updatedSong.Genres ?? songToUpdate.Genres;
-            songToUpdate.Reproductions = updatedSong.Reproductions ?? songToUpdate.Reproductions;
-            return songToUpdate;
+            var songToUpdate = _repository.UpdateSong(albumId, songId, _mapper.Map<SongEntity>(updatedSong), artistId);
+            return _mapper.Map<SongModel>(songToUpdate);
         }
 
         private void ValidateAlbum(long albumId, long artistId)
         {
-            _albumService.GetAlbum(albumId, artistId);
+            var album = _repository.GetAlbum(albumId, artistId);
+            if (album == null)
+            {
+                throw new NotFoundItemException($"The album with id: {albumId} does not exist in artist with id:{artistId}.");
+            }
         }
 
-        public SongModel UpdateReproductions(long albumId, long songId, ActionModel action, long artistId)
+        public SongModel UpdateReproductions(long albumId, long songId, Models.ActionForModels action, long artistId)
         {
             if (!_allowedUpdatesToReproductions.Contains(action.Action.ToLower()))
                 throw new InvalidOperationItemException($"The update: {action.Action} is invalid");
-            var song = GetSong(albumId, songId, artistId);
-            switch (action.Action.ToLower())
-            {
-                case "the song was played":
-                    song.Reproductions++;
-                    break;
-                default:
-                    break;
-            }
+            var song = _mapper.Map<SongModel>(_repository.UpdateReproductions(albumId, songId, action, artistId));
             return song;
         }
         public IEnumerable<SongModel> GetSongs(long albumId, long artistId, string orderBy = "id", string filter = "allSongs")
@@ -281,7 +140,7 @@ namespace MusicLibraryAPI.Services
                 throw new InvalidOperationItemException($"The filter value: {filter} is invalid, please use one of {String.Join(',', _allowedFilters.ToArray())}");
 
             ValidateAlbum(albumId, artistId);
-            IEnumerable<SongModel> albumSongs = _songs.Where(p => p.AlbumId == albumId);
+            IEnumerable<SongModel> albumSongs = _mapper.Map<IEnumerable<SongModel>>(_repository.GetSongs(albumId, artistId, orderBy, filter));
             var songsFiltered = FilterSongs(filter, albumSongs);
             var songsOrdered = OrderSongs(orderBy, songsFiltered);
             return songsOrdered;
@@ -292,14 +151,13 @@ namespace MusicLibraryAPI.Services
                 throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
             if (!_allowedFilters.Contains(filter.ToLower()))
                 throw new InvalidOperationItemException($"The filter value: {filter} is invalid, please use one of {String.Join(',', _allowedFilters.ToArray())}");
-            var songsFiltered = FilterSongs(filter, _songs);
+            var songsFiltered = FilterSongs(filter, GetAllSongs());
             var songsOrdered = OrderSongs(orderBy, songsFiltered);
             return songsOrdered;
         }
-
         public IEnumerable<SongModel> GetAllSongs()
         {
-            return _songs;
+            return _mapper.Map<IEnumerable<SongModel>>(_repository.GetAllSongs());
         }
     }
 }

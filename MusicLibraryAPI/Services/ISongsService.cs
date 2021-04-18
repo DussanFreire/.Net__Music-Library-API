@@ -16,6 +16,6 @@ namespace MusicLibraryAPI.Services
         public SongModel CreateSong(long albumId, SongModel newSong, long artistId);
         public bool DeleteSong(long albumId, long songId, long artistId);
         public SongModel UpdateSong(long albumId, long songId, SongModel updatedSong, long artistId);
-        public SongModel UpdateReproductions(long albumId, long songId, ActionModel action, long artistId);
+        public SongModel UpdateReproductions(long albumId, long songId, Models.ActionForModels action, long artistId);
     }
 }

@@ -13,7 +13,7 @@ namespace MusicLibraryAPI.Services
         public ArtistModel CreateArtist(ArtistModel newArtist);
         public bool DeleteArtist(long artistId);
         public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist);
-        public ArtistModel UpdateArtistFollowers(long artistId, ActionModel action);
+        public ArtistModel UpdateArtistFollowers(long artistId, Models.ActionForModels action);
         public string GetMeanOfFollowersByYearsOfCareer(int years = 0);
         public List<ArtistForDecadeModel> GetArtistForYearOfBorning();
     }

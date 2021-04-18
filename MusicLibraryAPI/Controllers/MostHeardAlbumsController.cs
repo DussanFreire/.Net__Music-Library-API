@@ -29,15 +29,17 @@ namespace MusicLibraryAPI.Controllers
                 var albumsWithReproductions= _albumWithReproductionsService.ChooseMostHearedAlbums();
                 return Ok(albumsWithReproductions);
             }
-            catch (NotFoundItemException ex)
-            {
-                return NotFound(ex.Message);
-            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
+            /*
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            */
         }
-       
+
     }
 }

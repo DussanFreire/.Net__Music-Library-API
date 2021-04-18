@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MusicLibraryAPI.Models
 {
-    public class ActionModel
+    public class ActionForModels
     {
         public string Action { get; set; }
     }

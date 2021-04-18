@@ -111,7 +111,7 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{artistId:long}$followers")]
-        public ActionResult<ArtistModel> UpdateArtistFollowers(long artistId, [FromBody] ActionModel action)
+        public ActionResult<ArtistModel> UpdateArtistFollowers(long artistId, [FromBody] Models.ActionForModels action)
         {
             try
             {

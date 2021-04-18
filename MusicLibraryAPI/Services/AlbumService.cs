@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using AutoMapper;
+using MusicLibraryAPI.Data.Repositories;
+using MusicLibraryAPI.Data.Entities;
 namespace MusicLibraryAPI.Services
 {
     public class AlbumService : IAlbumsService
@@ -18,10 +20,13 @@ namespace MusicLibraryAPI.Services
             "price",
             "popularity"
         };
-        public AlbumService(IArtistsService artistsService)
+        private IMusicLibraryRepository _repository;
+        private IMapper _mapper;
+        public AlbumService(IArtistsService artistsService, IMusicLibraryRepository repository, IMapper mapper)
         {
             _artistsService = artistsService;
-
+            _repository = repository;
+            _mapper = mapper;
             _albums = new List<AlbumModel>();
             _albums.Add(new AlbumModel()
             {
@@ -135,57 +140,49 @@ namespace MusicLibraryAPI.Services
         public AlbumModel CreateAlbum(long artistId, AlbumModel newAlbum)
         {
             ValidateArtist(artistId);
-            newAlbum.ArtistId = artistId;
-            var nextId = _albums.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
-            newAlbum.Id = nextId;
-            _albums.Add(newAlbum);
-            return newAlbum;
+            var newAl = _mapper.Map<AlbumModel>(_repository.CreateAlbum(artistId, _mapper.Map<AlbumEntity>(newAlbum)));
+            return newAl;
         }
 
         public bool DeleteAlbum(long artistId, long albumId)
         {
-            var albumToDelete = GetAlbum(artistId, albumId);
-            _albums.Remove(albumToDelete);
-            return true;
+            ValidateAlbum(artistId, albumId);
+            return _repository.DeleteAlbum(artistId,albumId);
         }
 
         public AlbumModel GetAlbum(long artistId, long albumId)
         {
             ValidateArtist(artistId);
-            var album = _albums.FirstOrDefault(p => p.ArtistId == artistId && p.Id == albumId);
+            var album = _repository.GetAlbum(artistId,albumId);
             if (album == null)
             {
                 throw new NotFoundItemException($"The album with id: {albumId} does not exist in artist with id:{artistId}.");
             }
-            return album;
+            return _mapper.Map<AlbumModel>(album);
         }
 
         public IEnumerable<AlbumModel> GetAlbums(long artistId)
         {
             ValidateArtist(artistId);
-            return _albums.Where(p => p.ArtistId == artistId);
+            return _mapper.Map< IEnumerable<AlbumModel>>(_repository.GetAlbums(artistId));
         }
 
         public IEnumerable<AlbumModel> GetAllAlbums()
         {
-            return _albums;
+            return _mapper.Map<IEnumerable<AlbumModel>>(_repository.GetAllAlbums());
         }
 
         public AlbumModel UpdateAlbum(long artistId, long albumId, AlbumModel updatedAlbum)
         {
+            ValidateArtist(artistId);
             var albumToUpdate = GetAlbum(artistId, albumId);
-            albumToUpdate.Name = updatedAlbum.Name ?? albumToUpdate.Name;
-            albumToUpdate.Likes = updatedAlbum.Likes ?? albumToUpdate.Likes;
-            albumToUpdate.RecordIndustry = updatedAlbum.RecordIndustry ?? albumToUpdate.RecordIndustry;
-            albumToUpdate.PublicationDate = updatedAlbum.PublicationDate ?? albumToUpdate.PublicationDate;
-            albumToUpdate.Description = updatedAlbum.Description ?? albumToUpdate.Description;
-            albumToUpdate.Popularity = updatedAlbum.Popularity ?? albumToUpdate.Popularity;
-            albumToUpdate.Price = updatedAlbum.Price ?? albumToUpdate.Price;
-            return albumToUpdate;
+            var upA = _mapper.Map<AlbumModel>(_repository.UpdateAlbum(artistId, albumId, _mapper.Map<AlbumEntity>(updatedAlbum)));
+            return upA;
         }
         public IEnumerable<AlbumModel> BestAlbums()
         {
-            var albums = _albums.OrderByDescending(a => a.Popularity);
+            var alb = GetAllAlbums();
+            var albums = alb.OrderByDescending(a => a.Popularity);
             var albums2 = new List<AlbumModel>();
             var albumsGroups = albums.GroupBy(a => a.ArtistId);
             foreach (var albs in albumsGroups)
@@ -198,20 +195,20 @@ namespace MusicLibraryAPI.Services
         {
             if (!_allowedTopValues.Contains(value.ToLower()))
                 throw new InvalidOperationItemException($"The value: {value} is invalid, please use one of {String.Join(',', _allowedTopValues.ToArray())}");
-            var albums = _albums;
-            switch (value.ToLower())
-            {
-                case "popularity":
-                    return ((isDescending) ? albums.OrderBy(a => a.Popularity) : albums.OrderByDescending(a => a.Popularity)).Take(n);
-                case "likes":
-                    return ((isDescending) ? albums.OrderBy(a => a.Likes) : albums.OrderByDescending(a => a.Likes)).Take(n);
-                default:
-                    return ((isDescending) ? albums.OrderBy(a => a.Price) : albums.OrderByDescending(a => a.Price)).Take(n);
-            }
+            var albums = _mapper.Map<IEnumerable<AlbumModel>>(_repository.GetTop(value, n, isDescending));
+            return albums;
+        }
+        private void ValidateAlbum(long artistId,long albumId)
+        {
+            var album= GetAlbum(artistId,albumId);
         }
         private void ValidateArtist(long artistId)
         {
-            _artistsService.GetArtist(artistId);
+            var artist = _repository.GetArtist(artistId);
+            if (artist == null)
+            {
+                throw new NotFoundItemException($"The artist with id: {artistId} doesn't exists.");
+            }
         }
     }
 }
