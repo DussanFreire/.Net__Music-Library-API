@@ -10,21 +10,19 @@ namespace MusicLibraryAPI.Services
 {
     public class AlbumWithReproductionsService: IAlbumsWithReproductionsService
     {
-        private IAlbumsService _albumService;
-        private ISongsService _songsService;
         private IMusicLibraryRepository _repository;
         private IMapper _mapper;
         public AlbumWithReproductionsService(IAlbumsService albumService, ISongsService songsService, IMusicLibraryRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _albumService = albumService;
-            _songsService = songsService;
         }
-        public IEnumerable<AlbumWithReproductionsModel> ChooseMostHearedAlbums()
+        public async Task<IEnumerable<AlbumWithReproductionsModel>> ChooseMostHearedAlbumsAsync()
         {
-            var albums = _mapper.Map< IEnumerable < AlbumModel > >( _repository.GetAllAlbums());
-            var songs = _mapper.Map<IEnumerable<SongModel>>(_repository.GetAllSongs());
+            var albumsEntities = await _repository.GetAllAlbumsAsync();
+            var songsEntities = await _repository.GetAllSongsAsync();
+            var albums = _mapper.Map< IEnumerable < AlbumModel > >( albumsEntities);
+            var songs = _mapper.Map<IEnumerable<SongModel>>(songsEntities);
             long? reproductions = 0;
             List<AlbumWithReproductionsModel> AlbumsWithReproduction = new List<AlbumWithReproductionsModel>();
             foreach (AlbumModel album in albums)
@@ -38,7 +36,10 @@ namespace MusicLibraryAPI.Services
                     Likes = album.Likes,
                     PublicationDate = album.PublicationDate,
                     Id = album.Id,
-                    Reproductions = reproductions
+                    Reproductions = reproductions,
+                    Description = album.Description,
+                    Price = album.Price,
+                    Popularity = album.Popularity
                 };
                 AlbumsWithReproduction.Add(albumWithReproductions);
             }

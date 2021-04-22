@@ -43,37 +43,53 @@ namespace MusicLibraryAPI.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public SongModel CreateSong(long albumId, SongModel newSong, long artistId)
-        {
-            ValidateAlbum(albumId, artistId);
-            var newS = _mapper.Map<SongModel>(_repository.CreateSong(albumId, _mapper.Map<SongEntity>(newSong), artistId));
-            ///newSong.AlbumId = albumId;
-            ///var nextId = _songs.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
-            ///newSong.Id = nextId;
-            ///_songs.Add(newSong);
-            return newS;
+        public async Task<SongModel> CreateSongAsync(long albumId, SongModel newSong, long artistId)
+        {    
+            await ValidateAlbumAsync(albumId, artistId);
+            newSong.AlbumId = albumId;
+            var songEntity = _mapper.Map<SongEntity>(newSong);
+
+            _repository.CreateSong(albumId, songEntity, artistId);
+
+            var result = await _repository.SaveChangesAsync();
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return _mapper.Map<SongModel>(songEntity);
         }
 
-        public bool DeleteSong(long albumId, long songId, long artistId)
+        public async Task<bool> DeleteSongAsync(long albumId, long songId, long artistId)
         {
-            var songToDelete = GetSong(albumId, songId, artistId);
-            ///_songs.Remove(songToDelete);
-            return _repository.DeleteSong(albumId,songId,artistId);
+
+            await ValidateSongAsync(artistId, albumId, songId);
+
+            await _repository.DeleteSongAsync(albumId,songId,artistId);
+
+            var result = await _repository.SaveChangesAsync();
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return true;
         }
 
-        public SongModel GetSong(long albumId, long songId, long artistId)
+        public async Task<SongModel> GetSongAsync(long albumId, long songId, long artistId)
         {
-            ValidateAlbum(albumId, artistId);
-            var song = _repository.GetSong(albumId, songId, artistId);
-            if (song == null)
+            await ValidateAlbumAsync(albumId, artistId);
+            var songEntity = await _repository.GetSongAsync(albumId,songId,artistId);
+            if (songEntity == null)
             {
                 throw new NotFoundItemException($"The song with id: {songId} does not exist in album with id:{albumId}.");
             }
-            return _mapper.Map<SongModel>(song);
+            var songModel = _mapper.Map<SongModel>(songEntity);
+
+            songModel.AlbumId = albumId;
+            return songModel;
         }
         
 
-        private IEnumerable<SongModel> OrderSongs(string orderBy, IEnumerable<SongModel> songsFiltered)
+        private IEnumerable<SongModel> OrderSongsAsync(string orderBy, IEnumerable<SongModel> songsFiltered)
         {
             switch (orderBy.ToLower())
             {
@@ -86,7 +102,7 @@ namespace MusicLibraryAPI.Services
             }
         }
 
-        private IEnumerable<SongModel> FilterSongs(string filter, IEnumerable<SongModel> albumSongs)
+        private IEnumerable<SongModel> FilterSongsAsync(string filter, IEnumerable<SongModel> albumSongs)
         {
             int numberOfElements = albumSongs.ToList().Count;
             switch (filter.ToLower())
@@ -110,54 +126,80 @@ namespace MusicLibraryAPI.Services
             }
         }
 
-        public SongModel UpdateSong(long albumId, long songId, SongModel updatedSong, long artistId)
+        public async Task<SongModel> UpdateSongAsync(long albumId, long songId, SongModel updatedSong, long artistId)
         {
-            var songToUpdate = _repository.UpdateSong(albumId, songId, _mapper.Map<SongEntity>(updatedSong), artistId);
-            return _mapper.Map<SongModel>(songToUpdate);
+            await ValidateAlbumAsync(albumId, artistId);
+            var songUp = await _repository.UpdateSongAsync(albumId, songId, _mapper.Map<SongEntity>(updatedSong),artistId);
+            var result = await _repository.SaveChangesAsync();
+
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            var song = _mapper.Map<SongModel>(songUp);
+            song.AlbumId = albumId;
+            return song;
         }
 
-        private void ValidateAlbum(long albumId, long artistId)
+        private async Task ValidateAlbumAsync(long albumId, long artistId)
         {
-            var album = _repository.GetAlbum(albumId, artistId);
+            var album = await _repository.GetAlbumAsync(artistId,albumId);
             if (album == null)
             {
                 throw new NotFoundItemException($"The album with id: {albumId} does not exist in artist with id:{artistId}.");
             }
         }
 
-        public SongModel UpdateReproductions(long albumId, long songId, Models.ActionForModels action, long artistId)
+        public async Task<SongModel> UpdateReproductionsAsync(long albumId, long songId, Models.ActionForModels action, long artistId)
         {
             if (!_allowedUpdatesToReproductions.Contains(action.Action.ToLower()))
                 throw new InvalidOperationItemException($"The update: {action.Action} is invalid");
-            var song = _mapper.Map<SongModel>(_repository.UpdateReproductions(albumId, songId, action, artistId));
+            var songR = await _repository.UpdateReproductionsAsync(albumId, songId, action, artistId);
+            var result = await _repository.SaveChangesAsync();
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            var song = _mapper.Map<SongModel>(songR);
             return song;
         }
-        public IEnumerable<SongModel> GetSongs(long albumId, long artistId, string orderBy = "id", string filter = "allSongs")
+        public async Task<IEnumerable<SongModel>> GetSongsAsync(long albumId, long artistId, string orderBy = "id", string filter = "allSongs")
         {
             if (!_allowedOrderByValues.Contains(orderBy.ToLower()))
                 throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
             if (!_allowedFilters.Contains(filter.ToLower()))
                 throw new InvalidOperationItemException($"The filter value: {filter} is invalid, please use one of {String.Join(',', _allowedFilters.ToArray())}");
 
-            ValidateAlbum(albumId, artistId);
-            IEnumerable<SongModel> albumSongs = _mapper.Map<IEnumerable<SongModel>>(_repository.GetSongs(albumId, artistId, orderBy, filter));
-            var songsFiltered = FilterSongs(filter, albumSongs);
-            var songsOrdered = OrderSongs(orderBy, songsFiltered);
+            await ValidateAlbumAsync(albumId,artistId);
+            var songsEntity = await _repository.GetSongsAsync(albumId, artistId, orderBy, filter);
+            IEnumerable<SongModel> albumSongs = _mapper.Map<IEnumerable<SongModel>>(songsEntity);
+            var songsFiltered = FilterSongsAsync(filter, albumSongs);
+            var songsOrdered = OrderSongsAsync(orderBy, songsFiltered);
             return songsOrdered;
         }
-        public IEnumerable<SongModel> GetMostPlayedSongs(string orderBy = "reproductions", string filter = "top10")
+        public async Task<IEnumerable<SongModel>> GetMostPlayedSongsAsync(string orderBy = "reproductions", string filter = "top10")
         {
             if (!_allowedOrderByValues.Contains(orderBy.ToLower()))
                 throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
             if (!_allowedFilters.Contains(filter.ToLower()))
                 throw new InvalidOperationItemException($"The filter value: {filter} is invalid, please use one of {String.Join(',', _allowedFilters.ToArray())}");
-            var songsFiltered = FilterSongs(filter, GetAllSongs());
-            var songsOrdered = OrderSongs(orderBy, songsFiltered);
+            var songs = await GetAllSongsAsync();
+            var songsFiltered = FilterSongsAsync(filter, songs);
+            var songsOrdered = OrderSongsAsync(orderBy, songsFiltered);
             return songsOrdered;
         }
-        public IEnumerable<SongModel> GetAllSongs()
+        public async Task<IEnumerable<SongModel>> GetAllSongsAsync()
+        { 
+            var songsEntity = await _repository.GetAllSongsAsync();
+     
+            var songsModel = _mapper.Map<IEnumerable<SongModel>>(songsEntity);
+
+            return songsModel;
+        }
+
+        public async Task ValidateSongAsync(long artistId, long albumId,long songId)
         {
-            return _mapper.Map<IEnumerable<SongModel>>(_repository.GetAllSongs());
+            var song = await GetSongAsync(albumId, songId, artistId);
         }
     }
 }

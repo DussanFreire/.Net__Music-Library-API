@@ -22,11 +22,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<AlbumWithReproductionsModel>> GetMostHeardAlbums()
+        public async Task<ActionResult<List<AlbumWithReproductionsModel>>> GetMostHeardAlbumsAsync()
         {
             try
             {
-                var albumsWithReproductions= _albumWithReproductionsService.ChooseMostHearedAlbums();
+                var albumsWithReproductions= await _albumWithReproductionsService.ChooseMostHearedAlbumsAsync();
                 return Ok(albumsWithReproductions);
             }
             catch (Exception)

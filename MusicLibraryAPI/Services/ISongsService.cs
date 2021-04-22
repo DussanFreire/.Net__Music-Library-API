@@ -9,13 +9,13 @@ namespace MusicLibraryAPI.Services
 {
     public interface ISongsService
     {
-        public IEnumerable<SongModel> GetSongs(long albumId, long artistId,string orderBy = "id", string filter = "allSongs");
-        public IEnumerable<SongModel> GetAllSongs();
-        public SongModel GetSong(long albumId, long songId, long artistId);
-        public IEnumerable<SongModel> GetMostPlayedSongs(string orderBy = "reproductions", string filter = "top10");
-        public SongModel CreateSong(long albumId, SongModel newSong, long artistId);
-        public bool DeleteSong(long albumId, long songId, long artistId);
-        public SongModel UpdateSong(long albumId, long songId, SongModel updatedSong, long artistId);
-        public SongModel UpdateReproductions(long albumId, long songId, Models.ActionForModels action, long artistId);
+        public Task<IEnumerable<SongModel>> GetSongsAsync(long albumId, long artistId,string orderBy = "id", string filter = "allSongs");
+        public Task<IEnumerable<SongModel>> GetAllSongsAsync();
+        public Task<SongModel> GetSongAsync(long albumId, long songId, long artistId);
+        public Task<IEnumerable<SongModel>> GetMostPlayedSongsAsync(string orderBy = "reproductions", string filter = "top10");
+        public Task<SongModel> CreateSongAsync(long albumId, SongModel newSong, long artistId);
+        public Task<bool> DeleteSongAsync(long albumId, long songId, long artistId);
+        public Task<SongModel> UpdateSongAsync(long albumId, long songId, SongModel updatedSong, long artistId);
+        public Task<SongModel> UpdateReproductionsAsync(long albumId, long songId, Models.ActionForModels action, long artistId);
     }
 }

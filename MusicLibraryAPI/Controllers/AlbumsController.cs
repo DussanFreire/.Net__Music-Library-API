@@ -21,11 +21,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<AlbumModel>> GetAlbums(long artistId)
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetAlbumsAsync(long artistId)
         {
             try
             {
-                var albums = _albumService.GetAlbums(artistId);
+                var albums = await _albumService.GetAlbumsAsync(artistId);
                 return Ok(albums);
             }
             catch (NotFoundItemException ex)
@@ -39,11 +39,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet("{albumId:long}")]
-        public IActionResult GetAlbum(long artistId, long albumId)
+        public async Task<IActionResult> GetAlbumAsync(long artistId, long albumId)
         {
             try
             {
-                var album = _albumService.GetAlbum(artistId, albumId);
+                var album = await _albumService.GetAlbumAsync(artistId, albumId);
                 return Ok(album);
             }
             catch (NotFoundItemException ex)
@@ -58,13 +58,13 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AlbumModel> CreateAlbum(long artistId, [FromBody] AlbumModel newAlbum)
+        public async Task<ActionResult<AlbumModel>> CreateAlbumAsync(long artistId, [FromBody] AlbumModel newAlbum)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                var artist = _albumService.CreateAlbum(artistId, newAlbum);
+                var artist = await _albumService.CreateAlbumAsync(artistId, newAlbum);
                 return Created($"/api/artists/{artist.Id}", artist);
             }
             catch (NotFoundItemException ex)
@@ -78,11 +78,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpDelete("{albumId:long}")]
-        public ActionResult<bool> DeleteAlbum(long artistId, long albumId)
+        public async Task<ActionResult<bool>> DeleteAlbumAsync(long artistId, long albumId)
         {
             try
             {
-                var result = _albumService.DeleteAlbum(artistId, albumId);
+                var result = await _albumService.DeleteAlbumAsync(artistId, albumId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -96,11 +96,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{albumId:long}")]
-        public ActionResult<AlbumModel> UpdateAlbum(long artistId, long albumId, [FromBody] AlbumModel updatedAlbum)
+        public async Task<ActionResult<AlbumModel>> UpdateAlbumAsync(long artistId, long albumId, [FromBody] AlbumModel updatedAlbum)
         {
             try
             {
-                var artist = _albumService.UpdateAlbum(artistId, albumId, updatedAlbum);
+                var artist = await _albumService.UpdateAlbumAsync(artistId, albumId, updatedAlbum);
                 return Ok(artist);
             }
             catch (NotFoundItemException ex)
@@ -114,11 +114,11 @@ namespace MusicLibraryAPI.Controllers
         }
         [Route("/api/bestalbums")]
         [HttpGet]
-        public ActionResult<IEnumerable<AlbumModel>> GetBestAlbums()
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetBestAlbumsAsync()
         {
             try
             {
-                var albums = _albumService.BestAlbums();
+                var albums = await _albumService.BestAlbumsAsync();
                 return Ok(albums);
             }
             catch (Exception)
@@ -128,11 +128,11 @@ namespace MusicLibraryAPI.Controllers
         }
         [Route("/api/topalbums")]
         [HttpGet]
-        public ActionResult<IEnumerable<AlbumModel>> GetTopAlbums(string value = "", int top = 5, bool descending = false)
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetTopAlbumsAsync(string value = "", int top = 5, bool descending = false)
         {
             try
             {
-                var albums = _albumService.GetTop(value,top,descending);
+                var albums = await _albumService.GetTopAsync(value,top,descending);
                 return Ok(albums);
             }
             catch (InvalidOperationItemException ex)

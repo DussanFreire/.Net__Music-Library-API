@@ -1,0 +1,308 @@
+[
+    {
+        "id": 1,
+        "artisticName": "Bob Dylan",
+        "name": "Robert Allen Zimmerman",
+        "followers": 121546,
+        "nacionality": "USA",
+        "artistDescription": "Bob Dylan (born Robert Allen Zimmerman; May 24, 1941) is an American singer-songwriter, author and visual artist. Often regarded as one of the greatest songwriters of all time, Dylan has been a major figure in popular culture for more than 50 years. ",
+        "dateOfBirth": "1941-05-24T00:00:00"
+    },
+    {
+        "id": 2,
+        "artisticName": "Rod Stewart",
+        "name": "Roderick David Stewart",
+        "followers": 213215,
+        "nacionality": "England",
+        "artistDescription": "Modern fans of Rod Stewart's smooth songbook recordings might not recognize the tough rock that defined his early work. His solo career began when he was still a member of the Faces, and – at least initially – mirrored his main band's ragged roots rock. But he found far more chart success and soon struck out on his own.",
+        "dateOfBirth": "1945-01-10T00:00:00"
+    },
+    {
+        "id": 3,
+        "artisticName": "Jimi Hendrix",
+        "name": "James Marshall Hendrix",
+        "followers": 4534546,
+        "nacionality": "USA",
+        "artistDescription": "James Marshall Hendrix, better known as Jimi Hendrix, was an American guitarist, singer, and songwriter. Despite the fact that his professional career only lasted four years, he is considered one of the most influential guitarists in rock history.",
+        "dateOfBirth": "1942-10-27T00:00:00"
+    },
+    {
+        "id": 4,
+        "artisticName": "Ice Cube",
+        "name": "O'Shea Jackson",
+        "followers": 500000,
+        "nacionality": "USA",
+        "artistDescription": "Ice Cube is an American rapper, actor, and filmmaker. They is knowed for his political rap.",
+        "dateOfBirth": "1978-01-01T00:00:00"
+    },
+    {
+        "id": 5,
+        "artisticName": "Asca",
+        "name": "Asuka Ōkura",
+        "followers": 200000,
+        "nacionality": "Japanese",
+        "artistDescription": "Asuka made her debut in 2013 after becoming a finalist at the 5th Animax All-Japan Anisong Grand Prix. After focusing on her studies, she resumed her music career in late 2016.",
+        "dateOfBirth": "1996-09-05T00:00:00"
+    },
+    {
+        "id": 6,
+        "artisticName": "Eminen",
+        "name": "Marshall Bruce Mathers III",
+        "followers": 2000000,
+        "nacionality": "USA",
+        "artistDescription": "Eminen is an American rapper, songwriter, and record producer. Eminem is among the best-selling music artists of all time, with estimated worldwide sales of more than 220 million records.",
+        "dateOfBirth": "1972-10-17T00:00:00"
+    },
+    {
+        "id": 7,
+        "artisticName": "Laura Pausini",
+        "name": "Laura Pausini",
+        "followers": 473000,
+        "nacionality": "Italian",
+        "artistDescription": "Laura is an Italian singer-songwriter and television personality.  After competing in local singing contests, Pausini signed her first recording contract. She rose to fame in 1993.",
+        "dateOfBirth": "1974-05-16T00:00:00"
+    }
+]
+
+[
+    {
+        "id": 1,
+        "name": "The Times They Are A-Changin'",
+        "recordIndustry": "Columbia Records",
+        "likes": 154544545,
+        "publicationDate": "1964-01-13T00:00:00",
+        "description": "Dylan wrote the song as a deliberate attempt to create an anthem of change for the time, influenced by Irish and Scottish ballads.",
+        "price": 30,
+        "popularity": 85.0,
+        "artistId": 1
+    }
+]
+
+[
+    {
+        "id": 2,
+        "name": "The Definitive Rod Stewart",
+        "recordIndustry": "Rhino Records",
+        "likes": 25454121,
+        "publicationDate": "2008-11-14T00:00:00",
+        "description": "Stewart's album and single sales total have been variously estimated as more than 100 million, or at 200 million.",
+        "price": 25,
+        "popularity": 87.3,
+        "artistId": 2
+    }
+]
+
+[
+    {
+        "id": 3,
+        "name": "Band of Gypsys",
+        "recordIndustry": "Fillmore East",
+        "likes": 2311445,
+        "publicationDate": "1970-01-01T00:00:00",
+        "description": "It contains previously unreleased songs and was the last full-length Hendrix album released before his death.",
+        "price": 20,
+        "popularity": 86.22,
+        "artistId": 3
+    }
+]
+
+[
+    {
+        "id": 4,
+        "name": "The Predator",
+        "recordIndustry": "Echo Sound",
+        "likes": 504065,
+        "publicationDate": "1992-03-11T00:00:00",
+        "description": "It is the third solo album by American rapper Ice Cube. Released in 1992 Los Angeles Riots month.",
+        "price": 20,
+        "popularity": 75.65,
+        "artistId": 4
+    },
+    {
+        "id": 5,
+        "name": "I Am the West",
+        "recordIndustry": "Lench Mob Records & EMI",
+        "likes": 584065,
+        "publicationDate": "2010-07-28T00:00:00",
+        "description": "I Am the West is the ninth studio album by American rapper Ice Cube",
+        "price": 25,
+        "popularity": 78.65,
+        "artistId": 4
+    },
+    {
+        "id": 6,
+        "name": "Lethal Injection",
+        "recordIndustry": "Echo Sound",
+        "likes": 1384065,
+        "publicationDate": "1993-12-07T00:00:00",
+        "description": "Lethal Injection is the fourth studio album by American rapper Ice Cube.",
+        "price": 25,
+        "popularity": 74.65,
+        "artistId": 4
+    }
+]
+
+[
+    {
+        "id": 7,
+        "name": "CHAIN",
+        "recordIndustry": "Sony Music Labels Inc",
+        "likes": 684065,
+        "publicationDate": "2020-02-26T00:00:00",
+        "description": "Hyakkiyakou - lectura: Hyakkiyakou",
+        "price": 25,
+        "popularity": 74.65,
+        "artistId": 5
+    }
+]
+
+[
+    {
+        "id": 8,
+        "name": "The Eminen Show",
+        "recordIndustry": "Encore",
+        "likes": 2684065,
+        "publicationDate": "2002-05-26T00:00:00",
+        "description": "The Eminem Show is the fourth studio album by American rapper Eminem. Originally scheduled for release on June 4, 2002, the album.",
+        "price": 35,
+        "popularity": 80.65,
+        "artistId": 6
+    }
+]
+
+[
+    {
+        "id": 9,
+        "name": "Yo Canto",
+        "recordIndustry": "Warner Music",
+        "likes": 3685462,
+        "publicationDate": "2002-05-26T00:00:00",
+        "description": "The album is a recopilation of 16 songs composed by the most destaced Italians autos of the XX centuary.",
+        "price": 40,
+        "popularity": 86.65,
+        "artistId": 7
+    }
+]
+
+[
+    {
+        "id": 1,
+        "name": "Like a Rolling Stone",
+        "reproductions": 15454444545,
+        "duration": "4:31",
+        "genres": "Blues",
+        "albumId": 1
+    },
+    {
+        "id": 2,
+        "name": "Tangled Up In Blue",
+        "reproductions": 35254542465465,
+        "duration": "4:32",
+        "genres": "Rock",
+        "albumId": 1
+    },
+    {
+        "id": 3,
+        "name": "Young turks",
+        "reproductions": 45454545465465,
+        "duration": "5:02",
+        "genres": "Rock",
+        "albumId": 2
+    },
+    {
+        "id": 4,
+        "name": "Have You Ever Seen The Rain",
+        "reproductions": 5454545465465,
+        "duration": "3:10",
+        "genres": "Rock",
+        "albumId": 2
+    },
+    {
+        "id": 5,
+        "name": "Machine Gun",
+        "reproductions": 12233131313,
+        "duration": "12:38",
+        "genres": "Rock",
+        "albumId": 3
+    },
+    {
+        "id": 6,
+        "name": "Changes",
+        "reproductions": 16532123,
+        "duration": "7:21",
+        "genres": "Rock",
+        "albumId": 3
+    },
+    {
+        "id": 7,
+        "name": "Song 3",
+        "reproductions": 34567643,
+        "duration": "7:21",
+        "genres": "Blues",
+        "albumId": 1
+    },
+    {
+        "id": 8,
+        "name": "Song 4",
+        "reproductions": 43456864,
+        "duration": "7:21",
+        "genres": "Cumbia",
+        "albumId": 1
+    },
+    {
+        "id": 9,
+        "name": "Song 5",
+        "reproductions": 7875647,
+        "duration": "7:21",
+        "genres": "Rock",
+        "albumId": 1
+    },
+    {
+        "id": 10,
+        "name": "Song 6",
+        "reproductions": 8458937,
+        "duration": "7:21",
+        "genres": "Blues",
+        "albumId": 1
+    },
+    {
+        "id": 11,
+        "name": "Song 7",
+        "reproductions": 65778978,
+        "duration": "7:21",
+        "genres": "Cumbia",
+        "albumId": 1
+    },
+    {
+        "id": 12,
+        "name": "It Was A Good Day",
+        "reproductions": 13619985,
+        "duration": "4:20",
+        "genres": "Rap",
+        "albumId": 4
+    },
+    {
+        "id": 13,
+        "name": "Howling",
+        "reproductions": 1817752,
+        "duration": "4:32",
+        "genres": "J-Pop",
+        "albumId": 7
+    },
+    {
+        "id": 14,
+        "name": "Business",
+        "reproductions": 7100828,
+        "duration": "4:11",
+        "genres": "Hip Hop",
+        "albumId": 8
+    },
+    {
+        "id": 15,
+        "name": "Yo Canto",
+        "reproductions": 1307493,
+        "duration": "4:21",
+        "genres": "Pop",
+        "albumId": 9
+    }
+]

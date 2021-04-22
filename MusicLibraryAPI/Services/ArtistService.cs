@@ -32,22 +32,34 @@ namespace MusicLibraryAPI.Services
             _mapper = mapper;
         }
 
-        public ArtistModel CreateArtist(ArtistModel newArtist)
+        public async Task<ArtistModel> CreateArtistAsync(ArtistModel newArtist)
         {
-
-            var newA = _mapper.Map<ArtistModel>(_repository.CreateArtist(_mapper.Map<ArtistEntity>(newArtist)));
-            return newA;
+            var artistEntity = _mapper.Map<ArtistEntity>(newArtist);
+            _repository.CreateArtist(artistEntity);
+            var result = await _repository.SaveChangesAsync();
+            if (result)
+            {
+                return _mapper.Map<ArtistModel>(artistEntity);
+            }
+            throw new Exception("Database Error");
         }
 
-        public bool DeleteArtist(long artistId)
+        public async Task<bool> DeleteArtistAsync(long artistId)
         {
-            ValidateArtist(artistId);
-            return _repository.DeleteArtist(artistId);
+            await ValidateArtistAsync(artistId);
+            await _repository.DeleteArtistAsync(artistId);
+            var result = await _repository.SaveChangesAsync();
+
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return true;
         }
 
-        public ArtistModel GetArtist(long artistId)
+        public async Task<ArtistModel> GetArtistAsync(long artistId)
         {
-            var artist = _repository.GetArtist(artistId);
+            var artist = await _repository.GetArtistAsync(artistId);
             if (artist == null)
             {
                 throw new NotFoundItemException($"The artist with id: {artistId} doesn't exists.");
@@ -55,35 +67,50 @@ namespace MusicLibraryAPI.Services
             return _mapper.Map<ArtistModel>(artist);
         }
 
-        public IEnumerable<ArtistModel> GetArtists(string orderBy = "id")
+        public async Task<IEnumerable<ArtistModel>> GetArtistsAsync(string orderBy = "id")
         {
             if (!_allowedOrderByValues.Contains(orderBy.ToLower()))
                 throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
-            return _mapper.Map<IEnumerable<ArtistModel>>(_repository.GetArtists(orderBy));
-
+            var entityList = await _repository.GetArtistsAsync(orderBy.ToLower());
+            var modelList = _mapper.Map<IEnumerable<ArtistModel>>(entityList);
+            return modelList;
         }
-        public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist)
+        public async Task<ArtistModel> UpdateArtistAsync(long artistId, ArtistModel updatedArtist)
         {
-            ValidateArtist(artistId);
-            var artist = _mapper.Map<ArtistModel>(_repository.UpdateArtist( artistId, _mapper.Map < ArtistEntity >( updatedArtist)));
-            return artist;
+            await GetArtistAsync(artistId);
+            updatedArtist.Id = artistId;
+            var upArt = await _repository.UpdateArtistAsync(artistId, _mapper.Map<ArtistEntity>(updatedArtist));
+            var result = await _repository.SaveChangesAsync();
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return _mapper.Map<ArtistModel>(upArt);
         }
 
-        public ArtistModel UpdateArtistFollowers(long artistId, Models.ActionForModels action)
+        public async Task<ArtistModel> UpdateArtistFollowersAsync(long artistId, Models.ActionForModels action)
         {
             if (!_allowedUpdatesToFollowers.Contains(action.Action.ToLower()))
                 throw new InvalidOperationItemException($"The update: {action.Action} is invalid");
-            ValidateArtist(artistId);
-            return _mapper.Map<ArtistModel>(_repository.UpdateArtistFollowers(artistId,action));
+            await ValidateArtistAsync(artistId);
+            var upArt = await _repository.UpdateArtistFollowersAsync(artistId, action);
+            var result = await _repository.SaveChangesAsync();
+            if (result)
+            {
+                return _mapper.Map<ArtistModel>(upArt);
+            }
+            throw new Exception("Database Error");
         }
-        public string GetMeanOfFollowersByYearsOfCareer(int years = 0)
+        public async Task<string> GetMeanOfFollowersByYearsOfCareerAsync(int years = 0)
         {
-            var artists = _repository.GetArtists().Where(a => years <= a.DateOfBirth.Value.Year);
-            return $"If the artist has at least {years} years , he can have {artists.Average(a => a.Followers)} followers.";
+            var artists = await _repository.GetArtistsAsync();
+            artists = artists.Where(a => years <= a.DateOfBirth.Value.Year);
+            return $"If the artist has at least {years} years , he can have {(int)(artists.Average(a => a.Followers))} followers.";
         }
-        public List<ArtistForDecadeModel> GetArtistForYearOfBorning()
+        public async Task<List<ArtistForDecadeModel>> GetArtistForYearOfBorningAsync()
         {
-            var artistGroupedByYear = _repository.GetArtists().GroupBy(a => a.DateOfBirth.Value.Year - a.DateOfBirth.Value.Year % 10);
+            var artistsR = await _repository.GetArtistsAsync();
+            var artistGroupedByYear = artistsR.GroupBy(a => a.DateOfBirth.Value.Year - a.DateOfBirth.Value.Year % 10);
             var list = new List<ArtistForDecadeModel>();
             foreach (var artists in artistGroupedByYear)
             {
@@ -97,9 +124,9 @@ namespace MusicLibraryAPI.Services
             }
             return list.OrderBy(a => a.Year).ToList();
         }
-        public void ValidateArtist(long artistId)
+        public async Task ValidateArtistAsync(long artistId)
         {
-            var artist = GetArtist(artistId);
+            var artist = await GetArtistAsync(artistId);
         }
     }
 }

@@ -87,7 +87,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/4",
+									"raw": "http://localhost:25797/api/artists/9",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -96,7 +96,7 @@
 									"path": [
 										"api",
 										"artists",
-										"4"
+										"9"
 									]
 								}
 							},
@@ -109,7 +109,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"artisticName\":\"Roddy Stewart\",\r\n    \"followers\":300\r\n}",
+									"raw": "{\r\n    \"artisticName\":\"Roddy Stewart\",\r\n    \"followers\":300,\r\n    \"nacionality\": \"USA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -225,7 +225,20 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:25797/api/artists/report/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"report",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -234,7 +247,20 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:25797/api/artists/year/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"artists",
+								"year",
+								""
+							]
+						}
 					},
 					"response": []
 				}
@@ -252,7 +278,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/1/albums/1",
+									"raw": "http://localhost:25797/api/artists/2/albums/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -261,7 +287,7 @@
 									"path": [
 										"api",
 										"artists",
-										"1",
+										"2",
 										"albums",
 										"1"
 									]
@@ -276,7 +302,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Name\": \"McCartney\",\r\n    \"RecordIndustry\": \"Apple Records\",\r\n    \"Likes\": 26412321,\r\n    \"PublicationDate\": \"1970-04-17T00:00:00\"\r\n}",
+									"raw": "{\r\n    \"Name\": \"McCartney\",\r\n    \"RecordIndustry\": \"Apple Records\",\r\n    \"Likes\": 26412321,\r\n    \"PublicationDate\": \"1970-04-17T00:00:00\",\r\n    \"description\": \"......\",\r\n    \"price\": 20,\r\n    \"popularity\": 87\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -284,7 +310,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:25797/api/artists/3/albums",
+									"raw": "http://localhost:25797/api/artists/4/albums",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -293,7 +319,7 @@
 									"path": [
 										"api",
 										"artists",
-										"3",
+										"4",
 										"albums"
 									]
 								}
@@ -306,7 +332,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/3/albums",
+									"raw": "http://localhost:25797/api/artists/5/albums",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -315,7 +341,7 @@
 									"path": [
 										"api",
 										"artists",
-										"3",
+										"5",
 										"albums"
 									]
 								}
@@ -328,7 +354,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/2/albums/2",
+									"raw": "http://localhost:25797/api/artists/4/albums/9",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -337,9 +363,9 @@
 									"path": [
 										"api",
 										"artists",
-										"2",
+										"4",
 										"albums",
-										"2"
+										"9"
 									]
 								}
 							},
@@ -352,7 +378,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Likes\": 101\r\n}",
+									"raw": "{\r\n    \"Likes\": 10100000\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -360,7 +386,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:25797/api/artists/3/albums/3",
+									"raw": "http://localhost:25797/api/artists/2/albums/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -369,9 +395,9 @@
 									"path": [
 										"api",
 										"artists",
-										"3",
+										"2",
 										"albums",
-										"3"
+										"1"
 									]
 								}
 							},
@@ -404,16 +430,50 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:25797/api/topalbums/?value=price&descending=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"topalbums",
+								""
+							],
+							"query": [
+								{
+									"key": "value",
+									"value": "price"
+								},
+								{
+									"key": "descending",
+									"value": "true"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "GetBestAlbumsForArtist",
+					"name": "GetBestAlbumsForDecade",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:25797/api/bestalbums/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "25797",
+							"path": [
+								"api",
+								"bestalbums",
+								""
+							]
+						}
 					},
 					"response": []
 				}
@@ -431,7 +491,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/1/albums/1/songs/1",
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -440,7 +500,7 @@
 									"path": [
 										"api",
 										"artists",
-										"1",
+										"2",
 										"albums",
 										"1",
 										"songs",
@@ -456,7 +516,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/1/albums/1/songs",
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -465,7 +525,7 @@
 									"path": [
 										"api",
 										"artists",
-										"1",
+										"2",
 										"albums",
 										"1",
 										"songs"
@@ -489,7 +549,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:25797/api/artists/3/albums/3/songs/5",
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -498,11 +558,11 @@
 									"path": [
 										"api",
 										"artists",
-										"3",
+										"2",
 										"albums",
-										"3",
+										"1",
 										"songs",
-										"5"
+										"7"
 									]
 								}
 							},
@@ -514,7 +574,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:25797/api/artists/3/albums/3/songs/5",
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs/16",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -523,11 +583,11 @@
 									"path": [
 										"api",
 										"artists",
-										"3",
+										"2",
 										"albums",
-										"3",
+										"1",
 										"songs",
-										"5"
+										"16"
 									]
 								}
 							},
@@ -540,7 +600,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Stay With Me\",\r\n    \"duration\": \"4:31\",\r\n    \"reproductions\": 0\r\n}",
+									"raw": "{\r\n    \"name\": \"Stay With Me\",\r\n    \"duration\": \"4:31\",\r\n    \"genres\": \"Soul\",\r\n    \"reproductions\": 0\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -548,7 +608,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:25797/api/artists/2/albums/2/songs",
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -559,7 +619,7 @@
 										"artists",
 										"2",
 										"albums",
-										"2",
+										"1",
 										"songs"
 									]
 								}
@@ -583,7 +643,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:25797/api/artists/1/albums/1/songs/1$played",
+							"raw": "http://localhost:25797/api/artists/1/albums/2/songs/1$played",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -594,7 +654,7 @@
 								"artists",
 								"1",
 								"albums",
-								"1",
+								"2",
 								"songs",
 								"1$played"
 							]
@@ -608,7 +668,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?filter=mostPlayedSong",
+							"raw": "http://localhost:25797/api/artists/2/albums/1/songs?filter=mostPlayedSong",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -617,7 +677,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1",
+								"2",
 								"albums",
 								"1",
 								"songs"
@@ -638,7 +698,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?filter=top3",
+							"raw": "http://localhost:25797/api/artists/2/albums/1/songs?filter=top3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -647,7 +707,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1",
+								"2",
 								"albums",
 								"1",
 								"songs"
@@ -668,7 +728,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:25797/api/artists/1/albums/1/songs?orderBy=name&filter=top10",
+							"raw": "http://localhost:25797/api/artists/2/albums/1/songs?orderBy=name&filter=top10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -677,7 +737,7 @@
 							"path": [
 								"api",
 								"artists",
-								"1",
+								"2",
 								"albums",
 								"1",
 								"songs"
@@ -741,6 +801,1003 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "DTBASE",
+			"item": [
+				{
+					"name": "ARTISTS",
+					"item": [
+						{
+							"name": "A1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Bob Dylan\",\r\n        \"name\": \"Robert Allen Zimmerman\",\r\n        \"followers\": 121546,\r\n        \"nacionality\": \"USA\",\r\n        \"artistDescription\": \"Bob Dylan (born Robert Allen Zimmerman; May 24, 1941) is an American singer-songwriter, author and visual artist. Often regarded as one of the greatest songwriters of all time, Dylan has been a major figure in popular culture for more than 50 years. \",\r\n        \"dateOfBirth\": \"1941-05-24T00:00:00\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Rod Stewart\",\r\n        \"name\": \"Roderick David Stewart\",\r\n        \"followers\": 213215,\r\n        \"nacionality\": \"England\",\r\n        \"artistDescription\": \"Modern fans of Rod Stewart's smooth songbook recordings might not recognize the tough rock that defined his early work. His solo career began when he was still a member of the Faces, and – at least initially – mirrored his main band's ragged roots rock. But he found far more chart success and soon struck out on his own.\",\r\n        \"dateOfBirth\": \"1945-01-10T00:00:00\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Jimi Hendrix\",\r\n        \"name\": \"James Marshall Hendrix\",\r\n        \"followers\": 4534546,\r\n        \"nacionality\": \"USA\",\r\n        \"artistDescription\": \"James Marshall Hendrix, better known as Jimi Hendrix, was an American guitarist, singer, and songwriter. Despite the fact that his professional career only lasted four years, he is considered one of the most influential guitarists in rock history.\",\r\n        \"dateOfBirth\": \"1942-10-27T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Ice Cube\",\r\n        \"name\": \"O'Shea Jackson\",\r\n        \"followers\": 500000,\r\n        \"nacionality\": \"USA\",\r\n        \"artistDescription\": \"Ice Cube is an American rapper, actor, and filmmaker. They is knowed for his political rap.\",\r\n        \"dateOfBirth\": \"1978-01-01T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Asca\",\r\n        \"name\": \"Asuka Ōkura\",\r\n        \"followers\": 200000,\r\n        \"nacionality\": \"Japanese\",\r\n        \"artistDescription\": \"Asuka made her debut in 2013 after becoming a finalist at the 5th Animax All-Japan Anisong Grand Prix. After focusing on her studies, she resumed her music career in late 2016.\",\r\n        \"dateOfBirth\": \"1996-09-05T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Eminen\",\r\n        \"name\": \"Marshall Bruce Mathers III\",\r\n        \"followers\": 2000000,\r\n        \"nacionality\": \"USA\",\r\n        \"artistDescription\": \"Eminen is an American rapper, songwriter, and record producer. Eminem is among the best-selling music artists of all time, with estimated worldwide sales of more than 220 million records.\",\r\n        \"dateOfBirth\": \"1972-10-17T00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"artisticName\": \"Laura Pausini\",\r\n        \"name\": \"Laura Pausini\",\r\n        \"followers\": 473000,\r\n        \"nacionality\": \"Italian\",\r\n        \"artistDescription\": \"Laura is an Italian singer-songwriter and television personality.  After competing in local singing contests, Pausini signed her first recording contract. She rose to fame in 1993.\",\r\n        \"dateOfBirth\": \"1974-05-16T00:00:00\"\r\n }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ALBUMS",
+					"item": [
+						{
+							"name": "AL1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"name\": \"The Times They Are A-Changin'\",\r\n        \"recordIndustry\": \"Columbia Records\",\r\n        \"likes\": 154544545,\r\n        \"publicationDate\": \"1964-01-13T00:00:00\",\r\n        \"description\": \"Dylan wrote the song as a deliberate attempt to create an anthem of change for the time, influenced by Irish and Scottish ballads.\",\r\n        \"price\": 30,\r\n        \"popularity\": 85.0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"The Definitive Rod Stewart\",\r\n        \"recordIndustry\": \"Rhino Records\",\r\n        \"likes\": 25454121,\r\n        \"publicationDate\": \"2008-11-14T00:00:00\",\r\n        \"description\": \"Stewart's album and single sales total have been variously estimated as more than 100 million, or at 200 million.\",\r\n        \"price\": 25,\r\n        \"popularity\": 87.3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"The Predator\",\r\n        \"recordIndustry\": \"Echo Sound\",\r\n        \"likes\": 504065,\r\n        \"publicationDate\": \"1992-03-11T00:00:00\",\r\n        \"description\": \"It is the third solo album by American rapper Ice Cube. Released in 1992 Los Angeles Riots month.\",\r\n        \"price\": 20,\r\n        \"popularity\": 75.65\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/5/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"5",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"I Am the West\",\r\n        \"recordIndustry\": \"Lench Mob Records & EMI\",\r\n        \"likes\": 584065,\r\n        \"publicationDate\": \"2010-07-28T00:00:00\",\r\n        \"description\": \"I Am the West is the ninth studio album by American rapper Ice Cube\",\r\n        \"price\": 25,\r\n        \"popularity\": 78.65\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/5/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"5",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Lethal Injection\",\r\n        \"recordIndustry\": \"Echo Sound\",\r\n        \"likes\": 1384065,\r\n        \"publicationDate\": \"1993-12-07T00:00:00\",\r\n        \"description\": \"Lethal Injection is the fourth studio album by American rapper Ice Cube.\",\r\n        \"price\": 25,\r\n        \"popularity\": 74.65\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/5/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"5",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"CHAIN\",\r\n        \"recordIndustry\": \"Sony Music Labels Inc\",\r\n        \"likes\": 684065,\r\n        \"publicationDate\": \"2020-02-26T00:00:00\",\r\n        \"description\": \"Hyakkiyakou - lectura: Hyakkiyakou\",\r\n        \"price\": 25,\r\n        \"popularity\": 74.65\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/6/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"6",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"The Eminen Show\",\r\n        \"recordIndustry\": \"Encore\",\r\n        \"likes\": 2684065,\r\n        \"publicationDate\": \"2002-05-26T00:00:00\",\r\n        \"description\": \"The Eminem Show is the fourth studio album by American rapper Eminem. Originally scheduled for release on June 4, 2002, the album.\",\r\n        \"price\": 35,\r\n        \"popularity\": 80.65\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/7/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"7",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AL8",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Yo Canto\",\r\n        \"recordIndustry\": \"Warner Music\",\r\n        \"likes\": 3685462,\r\n        \"publicationDate\": \"2002-05-26T00:00:00\",\r\n        \"description\": \"The album is a recopilation of 16 songs composed by the most destaced Italians autos of the XX centuary.\",\r\n        \"price\": 40,\r\n        \"popularity\": 86.65\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/8/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"8",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ALB9",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Band of Gypsys\",\r\n        \"recordIndustry\": \"Fillmore East\",\r\n        \"likes\": 2311445,\r\n        \"publicationDate\": \"1970-01-01T00:00:00\",\r\n        \"description\": \"It contains previously unreleased songs and was the last full-length Hendrix album released before his death.\",\r\n        \"price\": 20,\r\n        \"popularity\": 86.22\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/4/albums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"4",
+										"albums"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SONGS",
+					"item": [
+						{
+							"name": "S1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Like a Rolling Stone\",\r\n        \"reproductions\": 15454444545,\r\n        \"duration\": \"4:31\",\r\n        \"genres\": \"Blues\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Tangled Up In Blue\",\r\n        \"reproductions\": 35254542465465,\r\n        \"duration\": \"4:32\",\r\n        \"genres\": \"Rock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Young turks\",\r\n        \"reproductions\": 45454545465465,\r\n        \"duration\": \"5:02\",\r\n        \"genres\": \"Rock\",\r\n        \"albumId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums/2/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums",
+										"2",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Have You Ever Seen The Rain\",\r\n        \"reproductions\": 5454545465465,\r\n        \"duration\": \"3:10\",\r\n        \"genres\": \"Rock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/3/albums/2/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"3",
+										"albums",
+										"2",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Machine Gun\",\r\n        \"reproductions\": 12233131313,\r\n        \"duration\": \"12:38\",\r\n        \"genres\": \"Rock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/4/albums/10/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"4",
+										"albums",
+										"10",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Changes\",\r\n        \"reproductions\": 16532123,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Rock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/4/albums/10/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"4",
+										"albums",
+										"10",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Song 3\",\r\n        \"reproductions\": 34567643,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Blues\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S8",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Song 4\",\r\n        \"reproductions\": 43456864,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Cumbia\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S9",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Song 5\",\r\n        \"reproductions\": 7875647,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Rock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S10",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Song 6\",\r\n        \"reproductions\": 8458937,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Blues\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S11",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Song 7\",\r\n        \"reproductions\": 65778978,\r\n        \"duration\": \"7:21\",\r\n        \"genres\": \"Cumbia\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/2/albums/1/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"2",
+										"albums",
+										"1",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S12",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"It Was A Good Day\",\r\n        \"reproductions\": 13619985,\r\n        \"duration\": \"4:20\",\r\n        \"genres\": \"Rap\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/5/albums/4/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"5",
+										"albums",
+										"4",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S13",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Howling\",\r\n        \"reproductions\": 1817752,\r\n        \"duration\": \"4:32\",\r\n        \"genres\": \"J-Pop\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/6/albums/6/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"6",
+										"albums",
+										"6",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S14",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Business\",\r\n        \"reproductions\": 7100828,\r\n        \"duration\": \"4:11\",\r\n        \"genres\": \"Hip Hop\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/7/albums/7/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"7",
+										"albums",
+										"7",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S15",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Yo Canto\",\r\n        \"reproductions\": 1307493,\r\n        \"duration\": \"4:21\",\r\n        \"genres\": \"Pop\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:25797/api/artists/8/albums/8/songs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "25797",
+									"path": [
+										"api",
+										"artists",
+										"8",
+										"albums",
+										"8",
+										"songs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

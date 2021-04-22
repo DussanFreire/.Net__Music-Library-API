@@ -8,13 +8,13 @@ namespace MusicLibraryAPI.Services
 {
     public interface IArtistsService
     {
-        public IEnumerable<ArtistModel> GetArtists(string orderBy = "id");
-        public ArtistModel GetArtist(long artistId);
-        public ArtistModel CreateArtist(ArtistModel newArtist);
-        public bool DeleteArtist(long artistId);
-        public ArtistModel UpdateArtist(long artistId, ArtistModel updatedArtist);
-        public ArtistModel UpdateArtistFollowers(long artistId, Models.ActionForModels action);
-        public string GetMeanOfFollowersByYearsOfCareer(int years = 0);
-        public List<ArtistForDecadeModel> GetArtistForYearOfBorning();
+        public Task<IEnumerable<ArtistModel>> GetArtistsAsync(string orderBy = "id");
+        public Task<ArtistModel> GetArtistAsync(long artistId);
+        public Task<ArtistModel> CreateArtistAsync(ArtistModel newArtist);
+        public Task<bool> DeleteArtistAsync(long artistId);
+        public Task<ArtistModel> UpdateArtistAsync(long artistId, ArtistModel updatedArtist);
+        public Task<ArtistModel> UpdateArtistFollowersAsync(long artistId, Models.ActionForModels action);
+        public Task<string> GetMeanOfFollowersByYearsOfCareerAsync(int years = 0);
+        public Task<List<ArtistForDecadeModel>> GetArtistForYearOfBorningAsync();
     }
 }

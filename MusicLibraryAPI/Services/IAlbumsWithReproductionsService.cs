@@ -8,6 +8,6 @@ namespace MusicLibraryAPI.Services
 {
     public interface IAlbumsWithReproductionsService
     {
-        public IEnumerable<AlbumWithReproductionsModel> ChooseMostHearedAlbums();
+        public Task<IEnumerable<AlbumWithReproductionsModel>> ChooseMostHearedAlbumsAsync();
     }
 }

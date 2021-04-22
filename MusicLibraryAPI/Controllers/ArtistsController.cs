@@ -19,13 +19,12 @@ namespace MusicLibraryAPI.Controllers
         {
             _artistsService = artistsService;
         }
-
         [HttpGet]
-        public ActionResult<IEnumerable<ArtistModel>> GetArtists(string orderBy = "id")
+        public async Task<ActionResult<IEnumerable<ArtistModel>>> GetArtistsAsync(string orderBy = "id")
         {
             try
             {
-                var artists = _artistsService.GetArtists(orderBy);
+                var artists = await _artistsService.GetArtistsAsync(orderBy);
                 return Ok(artists);
             }
             catch (InvalidOperationItemException ex)
@@ -41,11 +40,11 @@ namespace MusicLibraryAPI.Controllers
     
 
         [HttpGet("{artistId:long}")]
-        public ActionResult<ArtistModel> GetArtist(long artistId)
+        public async Task<ActionResult<ArtistModel>> GetArtistAsync(long artistId)
         {
             try
             {
-                var artist = _artistsService.GetArtist(artistId);
+                var artist = await _artistsService.GetArtistAsync(artistId);
                 return Ok(artist);
             }
             catch (NotFoundItemException ex)
@@ -59,13 +58,13 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ArtistModel> CreateArtist([FromBody] ArtistModel newArtist)
+        public async Task<ActionResult<ArtistModel>> CreateArtistAsync([FromBody] ArtistModel newArtist)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                var artist = _artistsService.CreateArtist(newArtist);
+                var artist = await _artistsService.CreateArtistAsync(newArtist);
                 return Created($"/api/artists/{artist.Id}", artist);
             }
             catch (Exception)
@@ -75,11 +74,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpDelete("{artistId:long}")]
-        public ActionResult<bool> DeleteArtist(long artistId)
+        public async Task<ActionResult<bool>> DeleteArtistAsync(long artistId)
         {
             try
             {
-                var result = _artistsService.DeleteArtist(artistId);
+                var result = await _artistsService.DeleteArtistAsync(artistId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -93,11 +92,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{artistId:long}")]
-        public ActionResult<ArtistModel> UpdateArtist(long artistId, [FromBody] ArtistModel updatedArtist)
+        public async Task<ActionResult<ArtistModel>> UpdateArtistAsync(long artistId, [FromBody] ArtistModel updatedArtist)
         {
             try
             {
-                var artist = _artistsService.UpdateArtist(artistId, updatedArtist);
+                var artist = await _artistsService.UpdateArtistAsync(artistId, updatedArtist);
                 return Ok(artist);
             }
             catch (NotFoundItemException ex)
@@ -111,11 +110,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{artistId:long}$followers")]
-        public ActionResult<ArtistModel> UpdateArtistFollowers(long artistId, [FromBody] Models.ActionForModels action)
+        public async Task<ActionResult<ArtistModel>> UpdateArtistFollowersAsync(long artistId, [FromBody] Models.ActionForModels action)
         {
             try
             {
-                var artist = _artistsService.UpdateArtistFollowers(artistId, action);
+                var artist = await _artistsService.UpdateArtistFollowersAsync(artistId, action);
                 return Ok(artist);
             }
             catch (InvalidOperationItemException ex)
@@ -133,13 +132,14 @@ namespace MusicLibraryAPI.Controllers
         }
         [Route("/api/artists/report/")]
         [HttpGet]
-        public ActionResult<string> getMean(int years = 3)
+        public async Task<ActionResult<string>> getMeanAsync(int years = 3)
         {
             try
             {
-                if (years < 2)
+                if (years < 2) 
                     return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
-                return Ok(_artistsService.GetMeanOfFollowersByYearsOfCareer(years));
+                var res = await _artistsService.GetMeanOfFollowersByYearsOfCareerAsync(years);
+                return Ok(res);
             }
             catch (Exception)
             {
@@ -148,11 +148,11 @@ namespace MusicLibraryAPI.Controllers
         }
         [Route("/api/artists/year/")]
         [HttpGet]
-        public ActionResult<List<ArtistForDecadeModel>> GetArtistForYear()
+        public async Task<ActionResult<List<ArtistForDecadeModel>>> GetArtistForYearAsync()
         {
             try
             {
-                var artistForYear = _artistsService.GetArtistForYearOfBorning();
+                var artistForYear = await _artistsService.GetArtistForYearOfBorningAsync();
                 return Ok(artistForYear);
             }
             catch (Exception)

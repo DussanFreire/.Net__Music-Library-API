@@ -20,11 +20,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SongModel>> GetMostPlayedSongs(string orderBy = "reproductions", string filter = "top10")
+        public async Task<ActionResult<IEnumerable<SongModel>>> GetMostPlayedSongsAsync(string orderBy = "reproductions", string filter = "top10")
         {
             try
             {
-                var songs = _songService.GetMostPlayedSongs(orderBy, filter);
+                var songs = await _songService.GetMostPlayedSongsAsync(orderBy, filter);
                 return Ok(songs);
             }
             catch (InvalidOperationItemException ex)

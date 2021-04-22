@@ -22,11 +22,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SongModel>> GetSongs(long artistId, long albumId, string orderBy="id", string filter="allSongs")
+        public async Task<ActionResult<IEnumerable<SongModel>>> GetSongsAsync(long artistId, long albumId, string orderBy="id", string filter="allSongs")
         {
             try
             {
-                var songs = _songService.GetSongs(albumId,artistId, orderBy, filter);
+                var songs = await _songService.GetSongsAsync(albumId,artistId, orderBy, filter);
                 return Ok(songs);
             }
             catch (InvalidOperationItemException ex)
@@ -44,11 +44,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpGet("{songId:long}")]
-        public IActionResult GetSong(long artistId, long songId, long albumId)
+        public async Task<IActionResult> GetSongAsync(long artistId, long songId, long albumId)
         {
             try
             {
-                var song = _songService.GetSong(albumId, songId, artistId);
+                var song = await _songService.GetSongAsync(albumId, songId, artistId);
                 return Ok(song);
             }
             catch (NotFoundItemException ex)
@@ -62,13 +62,13 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<SongModel> CreateSong(long artistId, [FromBody] SongModel newSong, long albumId)
+        public async Task<ActionResult<SongModel>> CreateSongAsync(long artistId, [FromBody] SongModel newSong, long albumId)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                var artist = _songService.CreateSong(albumId, newSong, artistId);
+                var artist = await _songService.CreateSongAsync(albumId, newSong, artistId);
                 return Created($"/api/song/{artist.Id}", artist);
             }
             catch (NotFoundItemException ex)
@@ -82,11 +82,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpDelete("{songId:long}")]
-        public ActionResult<bool> DeleteSong(long artistId, long songId, long albumId)
+        public async Task<ActionResult<bool>> DeleteSongAsync(long artistId, long songId, long albumId)
         {
             try
             {
-                var result = _songService.DeleteSong(albumId, songId, artistId);
+                var result = await _songService.DeleteSongAsync(albumId, songId, artistId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -100,11 +100,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{songId:long}")]
-        public ActionResult<SongModel> UpdateSong(long artistId, long songId, [FromBody] SongModel updatedSong, long albumId)
+        public async Task<ActionResult<SongModel>> UpdateSongAsync(long artistId, long songId, [FromBody] SongModel updatedSong, long albumId)
         {
             try
             {
-                var artist = _songService.UpdateSong(albumId, songId, updatedSong, artistId);
+                var artist = await _songService.UpdateSongAsync(albumId, songId, updatedSong, artistId);
                 return Ok(artist);
             }
             catch (NotFoundItemException ex)
@@ -118,11 +118,11 @@ namespace MusicLibraryAPI.Controllers
         }
 
         [HttpPut("{songId:long}$played")]
-        public ActionResult<SongModel> UpdateSongFollowers(long artistId, long albumId, [FromBody] Models.ActionForModels action, long songId)
+        public async Task<ActionResult<SongModel>> UpdateSongFollowersAsync(long artistId, long albumId, [FromBody] Models.ActionForModels action, long songId)
         {
             try
             {
-                var artist = _songService.UpdateReproductions(albumId, songId, action, artistId);
+                var artist = await _songService.UpdateReproductionsAsync(albumId, songId, action, artistId);
                 return Ok(artist);
             }
             catch (InvalidOperationItemException ex)

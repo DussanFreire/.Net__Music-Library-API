@@ -1,5 +1,7 @@
 using MusicLibraryAPI.Services;
 using MusicLibraryAPI.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using MusicLibraryAPI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MusicLibraryAPI
 {
@@ -31,11 +34,16 @@ namespace MusicLibraryAPI
             services.AddTransient<IAlbumsService, AlbumService>();
             services.AddTransient<ISongsService, SongService>();
             services.AddTransient<IAlbumsWithReproductionsService, AlbumWithReproductionsService>();
-            services.AddSingleton<IMusicLibraryRepository, MusicLibraryRepository>();
+            services.AddTransient<IMusicLibraryRepository, MusicLibraryRepository>();
 
             
             //automapper configuration
             services.AddAutoMapper(typeof(Startup));
+
+            //entity framework configuration  MusicLibraryConnection
+            services.AddDbContext<MusicLibraryDbContext>( options => {
+                options.UseSqlServer(Configuration.GetConnectionString("MusicLibraryConnection"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,66 +1,31 @@
-﻿using MusicLibraryAPI.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicLibraryAPI.Data.Entities;
 using MusicLibraryAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Threading.Tasks;
 namespace MusicLibraryAPI.Data.Repositories
 {
     public class MusicLibraryRepository : IMusicLibraryRepository
     {
+        /*
         private IList<ArtistEntity> _artists;
         private List<AlbumEntity> _albums;
         private List<SongEntity> _songs;
-        private HashSet<string> _allowedOrderByValues = new HashSet<string>()
-        {
-            "id",
-            "name",
-            "followers",
-            "Nacionality"
-        };
-
-        private HashSet<string> _allowedUpdatesToFollowers = new HashSet<string>()
-        {
-            "artist followed by an user",
-            "artist unfollowed by an user",
-        };
-        private HashSet<string> _allowedTopValues = new HashSet<string>()
-        {
-            "likes",
-            "price",
-            "popularity"
-        };
-
-        private HashSet<string> _allowedUpdatesToReproductions = new HashSet<string>()
-        {
-            "the song was played",
-        };
-
-        private HashSet<string> _allowedOrderByValuesSongs = new HashSet<string>()
-        {
-            "id",
-            "name",
-            "reproductions",
-        };
-
-        private HashSet<string> _allowedFilters = new HashSet<string>()
-        {
-            "allsongs",
-            "top3",
-            "top10",
-            "top50",
-            "blues",
-            "cumbia",
-            "rock",
-            "mostplayedsong",
-        };
+        */
+        private MusicLibraryDbContext _dbContext;
 
 
-        public MusicLibraryRepository()
+        public MusicLibraryRepository(MusicLibraryDbContext dbContext)
         {
+            _dbContext = dbContext;
+            /*
             _artists = new List<ArtistEntity>();
             _albums = new List<AlbumEntity>();
             _songs = new List<SongEntity>();
+            
 
             _artists.Add(new ArtistEntity()
             {
@@ -144,8 +109,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(1964, 1, 13),
                 Description = "Dylan wrote the song as a deliberate attempt to create an anthem of change for the time, influenced by Irish and Scottish ballads.",
                 Price = 30,
-                Popularity = 85.0,
-                ArtistId = 1
+                Popularity = 85.0
+                ///ArtistId = 1
             });
             _albums.Add(new AlbumEntity()
             {
@@ -156,8 +121,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(2008, 11, 14),
                 Description = "Stewart's album and single sales total have been variously estimated as more than 100 million, or at 200 million.",
                 Price = 25,
-                Popularity = 87.3,
-                ArtistId = 2
+                Popularity = 87.3
+                ///ArtistId = 2
             });
             _albums.Add(new AlbumEntity()
             {
@@ -168,8 +133,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(1970, 1, 1),
                 Description = "It contains previously unreleased songs and was the last full-length Hendrix album released before his death.",
                 Price = 20,
-                Popularity = 86.22,
-                ArtistId = 3
+                Popularity = 86.22
+                ///ArtistId = 3
             });
             _albums.Add(new AlbumEntity()
             {
@@ -180,8 +145,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(1992, 3, 11),
                 Description = "It is the third solo album by American rapper Ice Cube. Released in 1992 Los Angeles Riots month.",
                 Price = 20,
-                Popularity = 75.65,
-                ArtistId = 4,
+                Popularity = 75.65
+                ///ArtistId = 4,
             });
             _albums.Add(new AlbumEntity()
             {
@@ -192,8 +157,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(2010, 7, 28),
                 Description = "I Am the West is the ninth studio album by American rapper Ice Cube",
                 Price = 25,
-                Popularity = 78.65,
-                ArtistId = 4,
+                Popularity = 78.65
+                ///ArtistId = 4,
             });
             _albums.Add(new AlbumEntity()
             {
@@ -204,8 +169,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(1993, 12, 7),
                 Description = "Lethal Injection is the fourth studio album by American rapper Ice Cube.",
                 Price = 25,
-                Popularity = 74.65,
-                ArtistId = 4,
+                Popularity = 74.65
+                ///ArtistId = 4,
             });
             _albums.Add(new AlbumEntity()
             {
@@ -216,8 +181,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(2020, 2, 26),
                 Description = "Hyakkiyakou - lectura: Hyakkiyakou",
                 Price = 25,
-                Popularity = 74.65,
-                ArtistId = 5,
+                Popularity = 74.65
+                ///ArtistId = 5,
             });
             _albums.Add(new AlbumEntity()
             {
@@ -228,8 +193,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(2002, 5, 26),
                 Description = "The Eminem Show is the fourth studio album by American rapper Eminem. Originally scheduled for release on June 4, 2002, the album.",
                 Price = 35,
-                Popularity = 80.65,
-                ArtistId = 6,
+                Popularity = 80.65
+                ///ArtistId = 6,
             });
             _albums.Add(new AlbumEntity()
             {
@@ -240,8 +205,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 PublicationDate = new DateTime(2002, 5, 26),
                 Description = "The album is a recopilation of 16 songs composed by the most destaced Italians autos of the XX centuary.",
                 Price = 40,
-                Popularity = 86.65,
-                ArtistId = 7,
+                Popularity = 86.65
+                ///ArtistId = 7,
             });
 
             _songs.Add(new SongEntity()
@@ -250,8 +215,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Like a Rolling Stone",
                 Reproductions = 15454444545,
                 Genres = "Blues",
-                Duration = "4:31",
-                AlbumId = 1
+                Duration = "4:31"
+                /// AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -259,8 +224,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Tangled Up In Blue",
                 Reproductions = 35254542465465,
                 Genres = "Rock",
-                Duration = "4:32",
-                AlbumId = 1
+                Duration = "4:32"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -268,8 +233,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Young turks",
                 Reproductions = 45454545465465,
                 Duration = "5:02",
-                Genres = "Rock",
-                AlbumId = 2
+                Genres = "Rock"
+                ///AlbumId = 2
             });
             _songs.Add(new SongEntity()
             {
@@ -277,8 +242,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Have You Ever Seen The Rain",
                 Reproductions = 5454545465465,
                 Duration = "3:10",
-                Genres = "Rock",
-                AlbumId = 2
+                Genres = "Rock"
+                ///AlbumId = 2
             });
             _songs.Add(new SongEntity()
             {
@@ -286,8 +251,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Machine Gun",
                 Reproductions = 12233131313,
                 Genres = "Rock",
-                Duration = "12:38",
-                AlbumId = 3
+                Duration = "12:38"
+                ///AlbumId = 3
             });
 
             _songs.Add(new SongEntity()
@@ -296,8 +261,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Changes",
                 Reproductions = 16532123,
                 Duration = "7:21",
-                Genres = "Rock",
-                AlbumId = 3
+                Genres = "Rock"
+                ///AlbumId = 3
             });
             _songs.Add(new SongEntity()
             {
@@ -305,8 +270,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Song 3",
                 Reproductions = 34567643,
                 Duration = "7:21",
-                Genres = "Blues",
-                AlbumId = 1
+                Genres = "Blues"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -314,8 +279,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Song 4",
                 Reproductions = 43456864,
                 Duration = "7:21",
-                Genres = "Cumbia",
-                AlbumId = 1
+                Genres = "Cumbia"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -323,8 +288,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Song 5",
                 Reproductions = 7875647,
                 Duration = "7:21",
-                Genres = "Rock",
-                AlbumId = 1
+                Genres = "Rock"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -332,8 +297,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Song 6",
                 Reproductions = 8458937,
                 Genres = "Blues",
-                Duration = "7:21",
-                AlbumId = 1
+                Duration = "7:21"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -341,8 +306,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Song 7",
                 Reproductions = 65778978,
                 Genres = "Cumbia",
-                Duration = "7:21",
-                AlbumId = 1
+                Duration = "7:21"
+                ///AlbumId = 1
             });
             _songs.Add(new SongEntity()
             {
@@ -350,8 +315,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "It Was A Good Day",
                 Reproductions = 13619985,
                 Genres = "Rap",
-                Duration = "4:20",
-                AlbumId = 4
+                Duration = "4:20"
+                ///AlbumId = 4
             });
             _songs.Add(new SongEntity()
             {
@@ -359,8 +324,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Howling",
                 Reproductions = 1817752,
                 Genres = "J-Pop",
-                Duration = "4:32",
-                AlbumId = 7
+                Duration = "4:32"
+                ///AlbumId = 7
             });
             _songs.Add(new SongEntity()
             {
@@ -368,8 +333,8 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Business",
                 Reproductions = 7100828,
                 Genres = "Hip Hop",
-                Duration = "4:11",
-                AlbumId = 8
+                Duration = "4:11"
+                ///AlbumId = 8
             });
             _songs.Add(new SongEntity()
             {
@@ -377,52 +342,61 @@ namespace MusicLibraryAPI.Data.Repositories
                 Name = "Yo Canto",
                 Reproductions = 1307493,
                 Genres = "Pop",
-                Duration = "4:21",
-                AlbumId = 9
-            });
+                Duration = "4:21"
+                ///AlbumId = 9
+            });*/
         }
-        public IEnumerable<ArtistEntity> GetArtists(string orderBy = "id")
+        public async Task<IEnumerable<ArtistEntity>> GetArtistsAsync(string orderBy = "id")
         {
+            IQueryable<ArtistEntity> query = _dbContext.Artists;
+            query =  query.AsNoTracking();
             switch (orderBy.ToLower())
             {
                 case "name":
-                    return _artists.OrderBy(t => t.Name);
+                    query = query.OrderBy(t => t.Name);
+                    break;
                 case "followers":
-                    return _artists.OrderByDescending(t => t.Followers);
+                    query = query.OrderByDescending(t => t.Followers);
+                    break;
                 case "Nacionality":
-                    return _artists.OrderBy(t => t.Nacionality);
+                    query = query.OrderBy(t => t.Nacionality);
+                    break;
                 default:
-                    return _artists.OrderBy(t => t.Id);
+                    query = query.OrderBy(t => t.Id);
+                    break;
             }
+            return await query.ToListAsync();
         }
-        public ArtistEntity GetArtist(long artistId)
+        public async Task<ArtistEntity> GetArtistAsync(long artistId)
         {
-            var artist = _artists.FirstOrDefault(t => t.Id == artistId);
+            IQueryable<ArtistEntity> query = _dbContext.Artists;
+            query = query.AsNoTracking();
+            ///query = query.Include(t => t.Albums); ///se tiene que implementar un model que soporte
+            var artist = await query.FirstOrDefaultAsync(t => t.Id == artistId);
             return artist;
         }
-        public ArtistEntity CreateArtist(ArtistEntity newArtist)
+
+        public void CreateArtist(ArtistEntity newArtist)
         {
-            var nextId = _artists.OrderByDescending(t => t.Id).FirstOrDefault().Id + 1;
-            newArtist.Id = nextId;
-            _artists.Add(newArtist);
-            return newArtist;
+            _dbContext.Artists.Add(newArtist);
         }
-        public bool DeleteArtist(long artistId)
+        public async Task DeleteArtistAsync(long artistId)
         {
-            var artistDelete = GetArtist(artistId);
-            var albums = _albums.Where(a => a.ArtistId == artistDelete.Id);
+            var artistToDelete = await _dbContext.Artists.FirstAsync(a=>a.Id==artistId);
+            _dbContext.Artists.Remove(artistToDelete);
+            /*var albums = _albums.Where(a => a.ArtistId == artistDelete.Id);
             foreach (var album in albums)
             {
                 _songs.RemoveAll(s=>s.AlbumId==album.Id);
             }
             _albums.RemoveAll(a => a.ArtistId == artistDelete.Id);
-            _artists.Remove(artistDelete);
-            return true;
+            _artists.Remove(artistDelete);*/
+
         }
-        public ArtistEntity UpdateArtist(long artistId, ArtistEntity updatedArtist)
+        public async Task<ArtistEntity> UpdateArtistAsync(long artistId, ArtistEntity updatedArtist)
         {
+            var artist = await _dbContext.Artists.FirstOrDefaultAsync(t => t.Id == artistId);
             updatedArtist.Id = artistId;
-            var artist = GetArtist(artistId);
             artist.ArtisticName = updatedArtist.ArtisticName ?? artist.ArtisticName;
             artist.DateOfBirth = updatedArtist.DateOfBirth ?? artist.DateOfBirth;
             artist.Name = updatedArtist.Name ?? artist.Name;
@@ -431,16 +405,16 @@ namespace MusicLibraryAPI.Data.Repositories
             artist.Nacionality = updatedArtist.Nacionality ?? artist.Nacionality;
             return artist;
         }
-        public ArtistEntity UpdateArtistFollowers(long artistId, Models.ActionForModels action)
+        public async Task<ArtistEntity> UpdateArtistFollowersAsync(long artistId, Models.ActionForModels action)
         {
-            var artist = GetArtist(artistId);
+            var artist = await _dbContext.Artists.FirstOrDefaultAsync(t => t.Id == artistId);
             switch (action.Action.ToLower())
             {
                 case "artist followed by an user":
-                    artist.Followers++;
+                    artist.Followers= artist.Followers+1;
                     break;
                 case "artist unfollowed by an user":
-                    artist.Followers--;
+                    artist.Followers= artist.Followers-1;
                     break;
                 default:
                     break;
@@ -448,36 +422,42 @@ namespace MusicLibraryAPI.Data.Repositories
             return artist;
         }
 
-        public IEnumerable<AlbumEntity> GetAlbums(long artistId)
+        public async Task<IEnumerable<AlbumEntity>> GetAlbumsAsync(long artistId)
         {
-            return _albums.Where(p => p.ArtistId == artistId);
+            IQueryable<AlbumEntity> query = _dbContext.Albums;
+            query = query.AsNoTracking();
+            query = query.Where(a => a.Artist.Id == artistId);
+            query = query.Include(a => a.Artist);
+            return await query.ToListAsync();
         }
-        public IEnumerable<AlbumEntity> GetAllAlbums()
+        public async Task<IEnumerable<AlbumEntity>> GetAllAlbumsAsync()
         {
-            return _albums;
+            IQueryable<AlbumEntity> query = _dbContext.Albums;
+            query = query.AsNoTracking();
+            query = query.Include(a => a.Artist);
+            return await query.ToListAsync();
         }
-        public AlbumEntity GetAlbum(long artistId, long albumId)
+        public async Task<AlbumEntity> GetAlbumAsync(long artistId, long albumId)
         {
-            return _albums.FirstOrDefault(p => p.ArtistId == artistId && p.Id == albumId);
+            IQueryable<AlbumEntity> query = _dbContext.Albums;
+            query = query.AsNoTracking();
+            query = query.Include(a => a.Artist);
+            ///query = query.Include(a => a.Songs); ///se tiene que implementar un model que soporte
+            return await query.FirstOrDefaultAsync(a => a.Id==albumId && a.Artist.Id == artistId);
         }
-        public AlbumEntity CreateAlbum(long artistId, AlbumEntity newAlbum)
+        public void CreateAlbum(long artistId, AlbumEntity newAlbum)
         {
-            newAlbum.ArtistId = artistId;
-            var nextId = _albums.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
-            newAlbum.Id = nextId;
-            _albums.Add(newAlbum);
-            return newAlbum;
+            _dbContext.Entry(newAlbum.Artist).State = EntityState.Unchanged;
+            _dbContext.Albums.Add(newAlbum);
         }
-        public bool DeleteAlbum(long artistId, long albumId)
+        public async Task DeleteAlbumAsync(long artistId, long albumId)
         {
-            var album = GetAlbum(artistId, albumId);
-            _songs.ToList().RemoveAll(s => s.AlbumId == album.Id);
-            _albums.Remove(album);
-            return true;
+            var albumToDelete = await _dbContext.Albums.FirstOrDefaultAsync(a => a.Id == albumId && a.Artist.Id == artistId);
+            _dbContext.Remove(albumToDelete);
         }
-        public AlbumEntity UpdateAlbum(long artistId, long albumId, AlbumEntity updatedAlbum)
+        public async Task<AlbumEntity> UpdateAlbumAsync(long artistId, long albumId, AlbumEntity updatedAlbum)
         {
-            var albumToUpdate = GetAlbum(artistId, albumId);
+            var albumToUpdate = await _dbContext.Albums.FirstOrDefaultAsync(a => a.Id == albumId && a.Artist.Id == artistId);
             albumToUpdate.Name = updatedAlbum.Name ?? albumToUpdate.Name;
             albumToUpdate.Likes = updatedAlbum.Likes ?? albumToUpdate.Likes;
             albumToUpdate.RecordIndustry = updatedAlbum.RecordIndustry ?? albumToUpdate.RecordIndustry;
@@ -487,70 +467,93 @@ namespace MusicLibraryAPI.Data.Repositories
             albumToUpdate.Price = updatedAlbum.Price ?? albumToUpdate.Price;
             return albumToUpdate;
         }
-        public IEnumerable<AlbumEntity> GetTop(string value = "", int n = 5, bool isDescending = false)
+        public async Task<IEnumerable<AlbumEntity>> GetTopAsync(string value = "", int n = 5, bool isDescending = false)
         {
-            var albums = _albums;
+            IQueryable<AlbumEntity> query = _dbContext.Albums;
+            query = query.AsNoTracking();
+            query = query.Include(a => a.Artist);
             switch (value.ToLower())
             {
                 case "popularity":
-                    return ((isDescending) ? albums.OrderBy(a => a.Popularity) : albums.OrderByDescending(a => a.Popularity)).Take(n);
+                    query=((isDescending) ? query.OrderBy(a => a.Popularity) : query.OrderByDescending(a => a.Popularity)).Take(n);
+                    break;
                 case "likes":
-                    return ((isDescending) ? albums.OrderBy(a => a.Likes) : albums.OrderByDescending(a => a.Likes)).Take(n);
+                    query=((isDescending) ? query.OrderBy(a => a.Likes) : query.OrderByDescending(a => a.Likes)).Take(n);
+                    break;
                 default:
-                    return ((isDescending) ? albums.OrderBy(a => a.Price) : albums.OrderByDescending(a => a.Price)).Take(n);
+                    query=((isDescending) ? query.OrderBy(a => a.Price) : query.OrderByDescending(a => a.Price)).Take(n);
+                    break;
             }
+            return await query.ToListAsync();
         }
 
 
-        public SongEntity GetSong(long albumId, long songId, long artistId)
+        public async Task<SongEntity> GetSongAsync(long albumId, long songId, long artistId)
         {
-            var song = _songs.FirstOrDefault(p => p.AlbumId == albumId && p.Id == songId);
-            return song;
+            IQueryable<SongEntity> query = _dbContext.Songs;
+            query = query.AsNoTracking();
+            query = query.Include(a => a.Album);
+            return await query.FirstOrDefaultAsync(a => a.Id == songId && a.Album.Id == albumId && a.Album.Artist.Id == artistId);
         }
-        public IEnumerable<SongEntity> GetSongs(long albumId, long artistId, string orderBy = "id", string filter = "allSongs")
+        public async Task<IEnumerable<SongEntity>> GetSongsAsync(long albumId, long artistId, string orderBy = "id", string filter = "allSongs")
         {
-            var songs =_songs.Where(p => p.AlbumId == albumId);
-            return songs;
+            IQueryable<SongEntity> query = _dbContext.Songs;
+            query = query.AsNoTracking();
+            query = query.Where(a => a.Album.Id == albumId && a.Album.Artist.Id == artistId);
+            query = query.Include(a => a.Album);
+            return await query.ToListAsync();
         }
-        public SongEntity CreateSong(long albumId, SongEntity newSong, long artistId)
+        public void CreateSong(long albumId, SongEntity newSong, long artistId)
         {
-            newSong.AlbumId = albumId;
-            var nextId = _songs.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
-            newSong.Id = nextId;
-            _songs.Add(newSong);
-            return newSong;
+            _dbContext.Entry(newSong.Album).State = EntityState.Unchanged;
+            _dbContext.Songs.Add(newSong);
         }
-        public bool DeleteSong(long albumId, long songId, long artistId)
+        public async Task DeleteSongAsync(long albumId, long songId, long artistId)
         {
-            var songToDelete = GetSong(albumId, songId, artistId);
-            _songs.Remove(songToDelete);
-            return true;
+            var songToDelete = await _dbContext.Songs.FirstOrDefaultAsync(s => s.Id == songId);
+            _dbContext.Remove(songToDelete);
         }
-        public SongEntity UpdateSong(long albumId, long songId, SongEntity updatedSong, long artistId)
+        public async Task<SongEntity> UpdateSongAsync(long albumId, long songId, SongEntity updatedSong, long artistId)
         {
-            var songToUpdate = GetSong(albumId, songId, artistId);
+            var songToUpdate = await _dbContext.Songs.FirstOrDefaultAsync(s => s.Id == songId && s.Album.Id == albumId && s.Album.Artist.Id == artistId);
             songToUpdate.Name = updatedSong.Name ?? songToUpdate.Name;
             songToUpdate.Duration = updatedSong.Duration ?? songToUpdate.Duration;
             songToUpdate.Genres = updatedSong.Genres ?? songToUpdate.Genres;
             songToUpdate.Reproductions = updatedSong.Reproductions ?? songToUpdate.Reproductions;
             return songToUpdate;
         }
-        public IEnumerable<SongEntity> GetAllSongs()
+        public async Task<IEnumerable<SongEntity>> GetAllSongsAsync()
         {
-            return _songs;
+            IQueryable<SongEntity> query = _dbContext.Songs;
+            query = query.AsNoTracking();
+            query = query.Include(a => a.Album);
+            return await query.ToListAsync();
         }
-        public SongEntity UpdateReproductions(long albumId, long songId, Models.ActionForModels action, long artistId)
+        public async Task<SongEntity> UpdateReproductionsAsync(long albumId, long songId, Models.ActionForModels action, long artistId)
         {
-            var song = GetSong(albumId, songId, artistId);
+            var song = await _dbContext.Songs.FirstOrDefaultAsync(s => s.Id == songId);
             switch (action.Action.ToLower())
             {
                 case "the song was played":
-                    song.Reproductions++;
+                    song.Reproductions= song.Reproductions+1;
                     break;
                 default:
                     break;
             }
             return song;
         }
+        public async Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                var res = await _dbContext.SaveChangesAsync();
+                return res > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
+
 }

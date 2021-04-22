@@ -12,7 +12,6 @@ namespace MusicLibraryAPI.Services
 {
     public class AlbumService : IAlbumsService
     {
-        private ICollection<AlbumModel> _albums;
         private IArtistsService _artistsService;
         private HashSet<string> _allowedTopValues = new HashSet<string>()
         {
@@ -27,184 +26,106 @@ namespace MusicLibraryAPI.Services
             _artistsService = artistsService;
             _repository = repository;
             _mapper = mapper;
-            _albums = new List<AlbumModel>();
-            _albums.Add(new AlbumModel()
-            {
-                Id = 1,
-                Name = "The Times They Are A-Changin'",
-                RecordIndustry= "Columbia Records",
-                Likes=154544545,
-                PublicationDate= new DateTime(1964, 1, 13),
-                Description = "Dylan wrote the song as a deliberate attempt to create an anthem of change for the time, influenced by Irish and Scottish ballads.",
-                Price = 30,
-                Popularity= 85.0,
-                ArtistId =1
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 2,
-                Name = "The Definitive Rod Stewart",
-                RecordIndustry = "Rhino Records",
-                Likes = 25454121,
-                PublicationDate = new DateTime(2008, 11, 14),
-                Description = "Stewart's album and single sales total have been variously estimated as more than 100 million, or at 200 million.",
-                Price = 25,
-                Popularity = 87.3,
-                ArtistId = 2
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 3,
-                Name = "Band of Gypsys",
-                RecordIndustry = "Fillmore East",
-                Likes = 2311445,
-                PublicationDate = new DateTime(1970, 1, 1),
-                Description = "It contains previously unreleased songs and was the last full-length Hendrix album released before his death.",
-                Price = 20,
-                Popularity = 86.22,
-                ArtistId = 3
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 4,
-                Name = "The Predator",
-                RecordIndustry = "Echo Sound",
-                Likes = 504065,
-                PublicationDate = new DateTime(1992, 3, 11),
-                Description = "It is the third solo album by American rapper Ice Cube. Released in 1992 Los Angeles Riots month.",
-                Price = 20,
-                Popularity = 75.65,
-                ArtistId = 4,
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 5,
-                Name = "I Am the West",
-                RecordIndustry = "Lench Mob Records & EMI",
-                Likes = 584065,
-                PublicationDate = new DateTime(2010, 7, 28),
-                Description = "I Am the West is the ninth studio album by American rapper Ice Cube",
-                Price = 25,
-                Popularity = 78.65,
-                ArtistId = 4,
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 6,
-                Name = "Lethal Injection",
-                RecordIndustry = "Echo Sound",
-                Likes = 1384065,
-                PublicationDate = new DateTime(1993, 12, 7),
-                Description = "Lethal Injection is the fourth studio album by American rapper Ice Cube.",
-                Price = 25,
-                Popularity = 74.65,
-                ArtistId = 4,
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 7,
-                Name = "CHAIN",
-                RecordIndustry = "Sony Music Labels Inc",
-                Likes = 684065,
-                PublicationDate = new DateTime(2020, 2, 26),
-                Description = "Hyakkiyakou - lectura: Hyakkiyakou",
-                Price = 25,
-                Popularity = 74.65,
-                ArtistId = 5,
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 8,
-                Name = "The Eminen Show",
-                RecordIndustry = "Encore",
-                Likes = 2684065,
-                PublicationDate = new DateTime(2002, 5, 26),
-                Description = "The Eminem Show is the fourth studio album by American rapper Eminem. Originally scheduled for release on June 4, 2002, the album.",
-                Price = 35,
-                Popularity = 80.65,
-                ArtistId = 6,
-            });
-            _albums.Add(new AlbumModel()
-            {
-                Id = 9,
-                Name = "Yo Canto",
-                RecordIndustry = "Warner Music",
-                Likes = 3685462,
-                PublicationDate = new DateTime(2002, 5, 26),
-                Description = "The album is a recopilation of 16 songs composed by the most destaced Italians autos of the XX centuary.",
-                Price = 40,
-                Popularity = 86.65,
-                ArtistId = 7,
-            });
         }
-        public AlbumModel CreateAlbum(long artistId, AlbumModel newAlbum)
+        public async Task<AlbumModel> CreateAlbumAsync(long artistId, AlbumModel newAlbum)
         {
-            ValidateArtist(artistId);
-            var newAl = _mapper.Map<AlbumModel>(_repository.CreateAlbum(artistId, _mapper.Map<AlbumEntity>(newAlbum)));
-            return newAl;
-        }
+            await ValidateArtistAsync(artistId);
+            newAlbum.ArtistId = artistId;
+            var albumEntity = _mapper.Map<AlbumEntity>(newAlbum);
 
-        public bool DeleteAlbum(long artistId, long albumId)
-        {
-            ValidateAlbum(artistId, albumId);
-            return _repository.DeleteAlbum(artistId,albumId);
-        }
+            _repository.CreateAlbum(artistId, albumEntity);
 
-        public AlbumModel GetAlbum(long artistId, long albumId)
-        {
-            ValidateArtist(artistId);
-            var album = _repository.GetAlbum(artistId,albumId);
-            if (album == null)
+            var result = await _repository.SaveChangesAsync();
+            if (!result)
             {
-                throw new NotFoundItemException($"The album with id: {albumId} does not exist in artist with id:{artistId}.");
+                throw new Exception("Database Error");
             }
-            return _mapper.Map<AlbumModel>(album);
+            return _mapper.Map<AlbumModel>(albumEntity);
         }
 
-        public IEnumerable<AlbumModel> GetAlbums(long artistId)
+        public async Task<bool> DeleteAlbumAsync(long artistId, long albumId)
         {
-            ValidateArtist(artistId);
-            return _mapper.Map< IEnumerable<AlbumModel>>(_repository.GetAlbums(artistId));
+            await ValidateAlbumAsync(artistId, albumId);
+
+            await _repository.DeleteAlbumAsync(artistId, albumId);
+
+            var result = await _repository.SaveChangesAsync();
+
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return true;
         }
 
-        public IEnumerable<AlbumModel> GetAllAlbums()
+        public async Task<AlbumModel> GetAlbumAsync(long artistId, long albumId)
         {
-            return _mapper.Map<IEnumerable<AlbumModel>>(_repository.GetAllAlbums());
+            await ValidateArtistAsync(artistId);
+            var albumEntity = await _repository.GetAlbumAsync(artistId, albumId);
+            if (albumEntity == null)
+            {
+                throw new NotFoundItemException($"The player with id: {albumId} does not exist in team with id:{artistId}.");
+            }
+
+            var albumModel = _mapper.Map<AlbumModel>(albumEntity);
+
+            albumModel.ArtistId = artistId;
+            return albumModel;
         }
 
-        public AlbumModel UpdateAlbum(long artistId, long albumId, AlbumModel updatedAlbum)
+        public async Task<IEnumerable<AlbumModel>> GetAlbumsAsync(long artistId)
         {
-            ValidateArtist(artistId);
-            var albumToUpdate = GetAlbum(artistId, albumId);
-            var upA = _mapper.Map<AlbumModel>(_repository.UpdateAlbum(artistId, albumId, _mapper.Map<AlbumEntity>(updatedAlbum)));
-            return upA;
+            await ValidateArtistAsync(artistId);
+            var albums = await _repository.GetAlbumsAsync(artistId);
+            return _mapper.Map<IEnumerable<AlbumModel>>(albums);
         }
-        public IEnumerable<AlbumModel> BestAlbums()
+
+        public async Task<IEnumerable<AlbumModel>> GetAllAlbumsAsync()
         {
-            var alb = GetAllAlbums();
+            var albums = await _repository.GetAllAlbumsAsync();
+            return _mapper.Map<IEnumerable<AlbumModel>>(albums);
+        }
+
+        public async Task<AlbumModel> UpdateAlbumAsync(long artistId, long albumId, AlbumModel updatedAlbum)
+        {
+            await ValidateArtistAsync(artistId);
+            var albUp = await _repository.UpdateAlbumAsync(artistId, albumId, _mapper.Map<AlbumEntity>(updatedAlbum));
+            var result = await _repository.SaveChangesAsync();
+
+            if (!result)
+            {
+                throw new Exception("Database Error");
+            }
+            return _mapper.Map<AlbumModel>(albUp);
+        }
+        public async Task<IEnumerable<AlbumModel>> BestAlbumsAsync()
+        {
+            var alb = await GetAllAlbumsAsync();
             var albums = alb.OrderByDescending(a => a.Popularity);
             var albums2 = new List<AlbumModel>();
             var albumsGroups = albums.GroupBy(a => a.ArtistId);
+            ///var albumsGroups = albums.GroupBy(a => a.PublicationDate.Value.Year- a.PublicationDate.Value.Year%10);
             foreach (var albs in albumsGroups)
             {
                 albums2.Add(albs.FirstOrDefault());
             }
-            return albums2;
+            return albums2.OrderBy(a => a.ArtistId);///albums2.OrderBy(a=>a.PublicationDate.Value.Year);
         }
-        public IEnumerable<AlbumModel> GetTop(string value = "", int n = 5, bool isDescending = false)
+        public async Task<IEnumerable<AlbumModel>> GetTopAsync(string value = "", int n = 5, bool isDescending = false)
         {
             if (!_allowedTopValues.Contains(value.ToLower()))
                 throw new InvalidOperationItemException($"The value: {value} is invalid, please use one of {String.Join(',', _allowedTopValues.ToArray())}");
-            var albums = _mapper.Map<IEnumerable<AlbumModel>>(_repository.GetTop(value, n, isDescending));
+            var albumsR = await _repository.GetTopAsync(value, n, isDescending);
+            var albums = _mapper.Map<IEnumerable<AlbumModel>>(albumsR);
             return albums;
         }
-        private void ValidateAlbum(long artistId,long albumId)
+        private async Task ValidateAlbumAsync(long artistId,long albumId)
         {
-            var album= GetAlbum(artistId,albumId);
+            var album= await GetAlbumAsync(artistId,albumId);
         }
-        private void ValidateArtist(long artistId)
+        private async Task ValidateArtistAsync(long artistId)
         {
-            var artist = _repository.GetArtist(artistId);
+            var artist = await _repository.GetArtistAsync(artistId);
             if (artist == null)
             {
                 throw new NotFoundItemException($"The artist with id: {artistId} doesn't exists.");
